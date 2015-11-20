@@ -6,18 +6,22 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController ($log, $mdToast) {
+  function MatchupsController ($log, $mdToast, $mdSticky) {
 
     var vm = this;
 
     vm.unsavedChanges = true;
+
+
+    var unsavedToast = $mdToast.simple()
+      .content('You have unsaved changes!')
+      .action('save')
+      .highlightAction(true)
+      .position('bottom right')
+      .hideDelay(false);
+
     $mdToast.show(
-      $mdToast.simple()
-        .content('You have unsaved changes!')
-        .action('save')
-        .highlightAction(true)
-        .position('bottom right')
-        .hideDelay(false)
+      unsavedToast
     ).then( function (response) {
       if ( response == 'ok' ) {
         $log.log('Saved the Matchup')
