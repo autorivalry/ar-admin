@@ -1,0 +1,123 @@
+<section flex layout="column">
+  <md-content flex layout-fill layout="row" layout-align="center center" ng-cloak md-theme="white-bg" class="md-background">
+    <md-card flex="33" flex-sm="90" flex-md="66" layout="column" layout-align="center" layout-padding md-theme="default">
+      <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-selected="account.tabIndex">
+        <md-tab label="Login" class="md-primary">
+          <div layout="row" layout-align="center" layout-padding style="text-align: center;">
+            <md-button class="md-fab md-primary">
+              <md-icon>lock_open</md-icon>
+            </md-button>
+          </div>
+          <div layout="row" layout-align="center" layout-padding style="text-align: center;">
+            <h1 class="md-headline">Login</h1>
+          </div>
+          <div layout="row" layout-align="center">
+            <md-input-container flex="80">
+              <label>Email</label>
+              <input type="email" ng-model="LoginCtrl.user.email">
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="center">
+            <md-input-container flex="80">
+              <label>Password</label>
+              <input type="password" ng-model="LoginCtrl.user.password">
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="center">
+            <md-button flex="80" class="md-primary md-raised" ng-click="LoginCtrl.loginWithPassword()">Login</md-button>
+          </div>
+        </md-tab>
+
+        <md-tab label="Register">
+          <div layout="row" layout-align="center" layout-padding style="text-align: center;">
+            <md-button class="md-fab md-primary">
+              <md-icon>person_add</md-icon>
+            </md-button>
+          </div>
+          <div layout="row" layout-align="center" layout-padding style="text-align: center;">
+            <h1 class="md-headline">Register</h1>
+          </div>
+
+          <div layout="row" layout-align="center">
+            <p flex="80">
+              Register is coming soon. <br><br>
+              If you are interested in becoming an Auto Rivalry client, we encourage you to contact us.
+            </p>
+          </div>
+          <form name="registerForm">
+
+            <div layout="row" layout-align="center">
+              <md-input-container flex="80" placeholder="jordan@theironyard.com">
+                <label>Email</label>
+                <input type="email" ng-model="LoginCtrl.newUser.email" name="email" required disabled>
+                <div ng-messages="registerForm.email.$error" ng-show="registerForm.email.$dirty">
+                  <div ng-message="required">Email is a required field</div>
+                  <div ng-message="email">This isn't a valid email address</div>
+                </div>
+              </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="center">
+              <md-input-container flex="80">
+                <label>Password</label>
+                <input type="password" name="password" ng-model="LoginCtrl.newUser.password" minlength="7" required disabled>
+                <div ng-messages="registerForm.password.$error" ng-show="registerForm.password.$dirty">
+                  <div ng-message="required">A password is required</div>
+                  <div ng-message="minlength">Your password needs to be at least 7 characters long</div>
+                </div>
+              </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="center">
+              <md-input-container flex="80">
+                <label>Confirm Password</label>
+                <input type="password" name="passwordConfirm" ng-model="LoginCtrl.newUser.passwordConfirm" required ng-pattern="{{ user.password }}" disabled>
+                <div ng-messages="registerForm.passwordConfirm.$error" ng-show="registerForm.passwordConfirm.$dirty">
+                  <div ng-message="pattern">Your passwords must match</div>
+                  <div ng-message="required">Please confirm your password</div>
+                </div>
+              </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="center">
+              <md-button flex="80" ng-disabled="!registerForm.$valid" class="md-primary md-raised" ng-click="account.createUser()">Submit</md-button>
+            </div>
+          </form>
+        </md-tab>
+
+        <md-tab label="Social">
+          <div layout="row" layout-align="center" layout-padding style="text-align: center;">
+            <md-button class="md-fab md-primary">
+              <md-icon>security</md-icon>
+            </md-button>
+          </div>
+          <div layout="row" layout-align="center" layout-padding style="text-align: center;">
+            <h1 class="md-headline">Login With OAuth</h1>
+          </div>
+          <div layout="row" layout-align="center">
+            <md-button flex="80" class="md-primary md-raised" ng-click="account.toast('OAuth Login Coming Soon!')">
+              <md-icon>phonelink_lock</md-icon>
+              Google
+            </md-button>
+          </div>
+          <div layout="row" layout-align="center">
+            <md-button flex="80" class="md-primary md-raised" ng-click="account.toast('OAuth Login Coming Soon!')">
+              <md-icon>phonelink_lock</md-icon>
+              Facebook
+            </md-button>
+          </div>
+        </md-tab>
+
+      </md-tabs>
+      <div style="min-height: 60px; text-align: center;" >
+        <p flex>
+
+        </p>
+      </div>
+      <div layout="row">
+        <md-progress-linear md-mode="indeterminate" ng-show="account.loading"></md-progress-linear>
+      </div>
+    </md-card>
+  </md-content>
+
+</section>
