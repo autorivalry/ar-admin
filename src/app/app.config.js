@@ -23,7 +23,7 @@
     // theming
     $mdThemingProvider.theme('default')
       .primaryPalette('indigo')
-      .accentPalette('purple')
+      .accentPalette('deep-purple')
       .backgroundPalette('grey');
 
 

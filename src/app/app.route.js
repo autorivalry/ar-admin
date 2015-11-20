@@ -32,13 +32,23 @@
       .state('li.matchups', {
         url: '/matchups',
         abstratc: true,
-        template: '<ui-view flex layout="column" />'
+        template: '<ui-view flex layout="column" />',
+        controller: 'MatchupsController',
+        controllerAs: 'MatchupsCtrl'
       })
       .state('li.matchups.index', {
         url: '/index',
         templateUrl: 'app/matchups/tmpl.index.html',
-        controller: 'MatchupsController',
-        controllerAs: 'MatchupsCtrl'
+        data: {
+          title: 'Matchups Index'
+        }
+      })
+      .state('li.matchups.create', {
+        url: '/create',
+        templateUrl: 'app/matchups/tmpl.create.html',
+        data: {
+          title: 'Create Matchup'
+        }
       });
 
     $urlRouterProvider.otherwise('/app/matchups/index');

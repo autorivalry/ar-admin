@@ -6,10 +6,16 @@
     .controller('AccountController', AccountController);
 
   /** @ngInject */
-  function AccountController ($mdSidenav, Auth, CurrentAuth) {
+  function AccountController ($state, $mdSidenav, Auth, CurrentAuth) {
 
     var vm = this;
     vm.me = CurrentAuth;
+    vm.data = $state.current.data;
+
+    /*
+     * Functions
+     */
+
     vm.logout = function () {
       // log the user out
       Auth.$unauth();
