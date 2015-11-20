@@ -6,9 +6,23 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController () {
+  function MatchupsController ($log, $mdToast) {
 
     var vm = this;
+
+    vm.unsavedChanges = true;
+    $mdToast.show(
+      $mdToast.simple()
+        .content('You have unsaved changes!')
+        .action('save')
+        .highlightAction(true)
+        .position('bottom right')
+        .hideDelay(false)
+    ).then( function (response) {
+      if ( response == 'ok' ) {
+        $log.log('Saved the Matchup')
+      }
+    });
 
     // TODO: Load this information dynamically using the
     //       Edmunds.com API
