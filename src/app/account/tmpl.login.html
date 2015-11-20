@@ -14,17 +14,17 @@
           <div layout="row" layout-align="center">
             <md-input-container flex="80">
               <label>Email</label>
-              <input type="email" ng-model="account.user.email">
+              <input type="email" ng-model="LoginCtrl.user.email">
             </md-input-container>
           </div>
           <div layout="row" layout-align="center">
             <md-input-container flex="80">
               <label>Password</label>
-              <input type="password" ng-model="account.user.password">
+              <input type="password" ng-model="LoginCtrl.user.password">
             </md-input-container>
           </div>
           <div layout="row" layout-align="center">
-            <md-button flex="80" class="md-primary md-raised" ng-click="account.loginWithPassword()">Login</md-button>
+            <md-button flex="80" class="md-primary md-raised" ng-click="LoginCtrl.loginWithPassword()">Login</md-button>
           </div>
         </md-tab>
 
@@ -37,12 +37,19 @@
           <div layout="row" layout-align="center" layout-padding style="text-align: center;">
             <h1 class="md-headline">Register</h1>
           </div>
+
+          <div layout="row" layout-align="center">
+            <p flex="80">
+              Register is coming soon. <br><br>
+              If you are interested in becoming an Auto Rivalry client, we encourage you to contact us.
+            </p>
+          </div>
           <form name="registerForm">
 
             <div layout="row" layout-align="center">
               <md-input-container flex="80" placeholder="jordan@theironyard.com">
                 <label>Email</label>
-                <input type="email" ng-model="account.newUser.email" name="email" required>
+                <input type="email" ng-model="LoginCtrl.newUser.email" name="email" required disabled>
                 <div ng-messages="registerForm.email.$error" ng-show="registerForm.email.$dirty">
                   <div ng-message="required">Email is a required field</div>
                   <div ng-message="email">This isn't a valid email address</div>
@@ -53,7 +60,7 @@
             <div layout="row" layout-align="center">
               <md-input-container flex="80">
                 <label>Password</label>
-                <input type="password" name="password" ng-model="account.newUser.password" minlength="7" required>
+                <input type="password" name="password" ng-model="LoginCtrl.newUser.password" minlength="7" required disabled>
                 <div ng-messages="registerForm.password.$error" ng-show="registerForm.password.$dirty">
                   <div ng-message="required">A password is required</div>
                   <div ng-message="minlength">Your password needs to be at least 7 characters long</div>
@@ -64,7 +71,7 @@
             <div layout="row" layout-align="center">
               <md-input-container flex="80">
                 <label>Confirm Password</label>
-                <input type="password" name="passwordConfirm" ng-model="account.newUser.passwordConfirm" required ng-pattern="{{ user.password }}">
+                <input type="password" name="passwordConfirm" ng-model="LoginCtrl.newUser.passwordConfirm" required ng-pattern="{{ user.password }}" disabled>
                 <div ng-messages="registerForm.passwordConfirm.$error" ng-show="registerForm.passwordConfirm.$dirty">
                   <div ng-message="pattern">Your passwords must match</div>
                   <div ng-message="required">Please confirm your password</div>
@@ -104,7 +111,7 @@
       </md-tabs>
       <div style="min-height: 60px; text-align: center;" >
         <p flex>
-          
+
         </p>
       </div>
       <div layout="row">

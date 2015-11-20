@@ -17,8 +17,8 @@
       .state('li', {
         url: '/app',
         templateUrl: '<ui-view flex layout="column" />',
-        // controller: 'AccountController',
-        // controllerAs: 'account',
+        controller: 'AccountController',
+        controllerAs: 'AccountCtrl',
         abstract: true,
         resolve: {
           // controller will not be loaded until $waitForAuth resolves
