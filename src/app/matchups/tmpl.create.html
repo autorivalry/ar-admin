@@ -1,16 +1,84 @@
 <h1 class="md-display-1">Create Matchup</h1>
 <div flex layout="row">
   <md-card flex="40">
+    <img ng-src="http://placehold.it/300x150&text=Hero+Car" class="md-card-image" alt="Hero Car">
     <md-card-content>
-      Choose a Hero Vehicle
+      <h2 class="md-title">Choose a Hero Vehicle:</h2>
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Make</label>
+          <md-select ng-model="hero.make">
+            <md-option ng-repeat="make in MatchupsCtrl.makes" value="{{ make }}">
+              {{ make }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </div><!-- row -->
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Model</label>
+          <md-select ng-model="hero.model">
+            <md-option ng-repeat="model in MatchupsCtrl.models" value="{{ model }}">
+              {{ model }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="35">
+          <label>Year</label>
+          <md-select ng-model="hero.year">
+            <md-option ng-repeat="year in MatchupsCtrl.years" value="{{ year }}">
+              {{ year }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
     </md-card-content>
   </md-card>
+
   <div flex layout="row" layout-align="center center">
     <md-icon aria-label="vs.">compare_arrows</md-icon>
   </div>
+
   <md-card flex="40">
+    <img ng-src="http://placehold.it/300x150&text=Villian+Car" class="md-card-image" alt="Villian Car">
     <md-card-content>
-      Choose a Villian Vehicle
+      <h2 class="md-title">Choose a Villian Vehicle:</h2>
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Make</label>
+          <md-select ng-model="villian.make" class="md-warn">
+            <md-option ng-repeat="make in MatchupsCtrl.makes" value="{{ make }}">
+              {{ make }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </div><!-- row -->
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Model</label>
+          <md-select ng-model="villian.model" class="md-warn">
+            <md-option ng-repeat="model in MatchupsCtrl.models" value="{{ model }}">
+              {{ model }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="35">
+          <label>Year</label>
+          <md-select ng-model="villian.year" class="md-warn">
+            <md-option ng-repeat="year in MatchupsCtrl.years" value="{{ year }}">
+              {{ year }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
     </md-card-content>
   </md-card>
 </div>
