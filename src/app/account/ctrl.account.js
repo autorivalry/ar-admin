@@ -6,7 +6,7 @@
     .controller('AccountController', AccountController);
 
   /** @ngInject */
-  function AccountController (Auth, CurrentAuth) {
+  function AccountController ($mdSidenav, Auth, CurrentAuth) {
 
     var vm = this;
     vm.me = CurrentAuth;
@@ -15,6 +15,11 @@
       Auth.$unauth();
 
       // then do something
+      $state.go('login');
+    }
+
+    vm.toggleSidenav = function () {
+      $mdSidenav('settings').toggle();
     }
 
   }

@@ -23,12 +23,15 @@
     // theming
     $mdThemingProvider.theme('default')
       .primaryPalette('indigo')
-      .accentPalette('deep-purple')
+      .accentPalette('purple')
       .backgroundPalette('grey');
 
 
     $mdThemingProvider.theme('white-bg', 'default')
       .backgroundPalette('blue-grey');
+
+    $mdThemingProvider.theme('indigo-bg', 'default')
+      .backgroundPalette('indigo');
   }
 
 })();

@@ -16,7 +16,7 @@
       })
       .state('li', {
         url: '/app',
-        templateUrl: '<ui-view flex layout="column" />',
+        templateUrl: 'app/account/tmpl.li.html',
         controller: 'AccountController',
         controllerAs: 'AccountCtrl',
         abstract: true,
@@ -28,10 +28,21 @@
             return Auth.$waitForAuth();
           }]
         }
+      })
+      .state('li.matchups', {
+        url: '/matchups',
+        abstratc: true,
+        template: '<ui-view flex layout="column" />'
+      })
+      .state('li.matchups.index', {
+        url: '/index',
+        templateUrl: 'app/matchups/tmpl.index.html',
+        controller: 'MatchupsController',
+        controllerAs: 'MatchupsCtrl'
       });
 
-    // $urlRouterProvider.otherwise('/app/matchups/index');
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/app/matchups/index');
+
   }
 
 })();
