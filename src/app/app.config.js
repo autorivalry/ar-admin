@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, toastrConfig) {
+  function config($logProvider, toastrConfig, $mdThemingProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
 
@@ -16,6 +16,19 @@
     toastrConfig.positionClass = 'toast-top-right';
     toastrConfig.preventDuplicates = true;
     toastrConfig.progressBar = true;
+
+    // setup icons
+    // $mdIconProvider.defaultIconSet(url, [viewBoxSize]);
+
+    // theming
+    $mdThemingProvider.theme('default')
+      .primaryPalette('indigo')
+      .accentPalette('deep-purple')
+      .backgroundPalette('grey');
+
+
+    $mdThemingProvider.theme('white-bg', 'default')
+      .backgroundPalette('blue-grey');
   }
 
 })();
