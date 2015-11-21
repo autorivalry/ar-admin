@@ -1,0 +1,204 @@
+<h1 class="md-display-1">Create Matchup</h1>
+<div flex layout="row">
+  <md-card flex="40">
+    <img ng-src="http://placehold.it/300x150&text=Hero+Car" class="md-card-image" alt="Hero Car">
+    <md-card-content>
+      <h2 class="md-title">Choose a Hero Vehicle:</h2>
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Make</label>
+          <md-select ng-model="hero.make">
+            <md-option ng-repeat="make in MatchupsCtrl.makes" value="{{ make }}">
+              {{ make }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </div><!-- row -->
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Model</label>
+          <md-select ng-model="hero.model">
+            <md-option ng-repeat="model in MatchupsCtrl.models" value="{{ model }}">
+              {{ model }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="35">
+          <label>Year</label>
+          <md-select ng-model="hero.year">
+            <md-option ng-repeat="year in MatchupsCtrl.years" value="{{ year }}">
+              {{ year }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+    </md-card-content>
+  </md-card>
+
+  <div flex layout="row" layout-align="center center">
+    <md-icon aria-label="vs.">compare_arrows</md-icon>
+  </div>
+
+  <md-card flex="40">
+    <img ng-src="http://placehold.it/300x150&text=Villian+Car" class="md-card-image" alt="Villian Car">
+    <md-card-content>
+      <h2 class="md-title">Choose a Villian Vehicle:</h2>
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Make</label>
+          <md-select ng-model="villian.make" class="md-warn">
+            <md-option ng-repeat="make in MatchupsCtrl.makes" value="{{ make }}">
+              {{ make }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </div><!-- row -->
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Model</label>
+          <md-select ng-model="villian.model" class="md-warn">
+            <md-option ng-repeat="model in MatchupsCtrl.models" value="{{ model }}">
+              {{ model }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="35">
+          <label>Year</label>
+          <md-select ng-model="villian.year" class="md-warn">
+            <md-option ng-repeat="year in MatchupsCtrl.years" value="{{ year }}">
+              {{ year }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+    </md-card-content>
+  </md-card>
+</div>
+
+
+<h2 class="md-headline">Build Your Table</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+
+      <md-list>
+        <md-list-item>
+          <div flex layout="row">
+            <span flex></span>
+            <span class="md-body-2" flex="30">{{ hero.make }} {{ hero.model }}</span>
+            <span class="md-body-2" flex="30">{{ villian.make }} {{ villian.model }}</span>
+          </div>
+          <md-divider></md-divider>
+        </md-list-item>
+
+        <md-list-item ng-repeat="spec in [{name: 'Fuel Economy', abbv: 'MPG'}, {name: 'Horsepower', abbv: 'HP'}]">
+          <md-divider></md-divider>
+          <div flex layout="row">
+            <span class="md-body-2" flex>{{ spec.name }}</span>
+            <span flex="30">{{ hero.model }}'s {{ spec.abbv }}</span>
+            <span flex="30">{{ villian.model }}'s {{ spec.abbv }}</span>
+          </div>
+          <md-checkbox class="md-secondary" ng-model="spec.include"></md-checkbox>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Write Comparison Article</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+        <div layout="row">
+          <text-angular-toolbar
+            flex="45"
+            name="headings"
+            ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+        </div>
+        <div layout="row">
+          <text-angular-toolbar
+            flex="25"
+            name="formatting"
+            ta-toolbar="[['quote','bold','italics','underline','strikeThrough']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="10"
+            name="lists"
+            ta-toolbar="[['ol','ul']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="20"
+            name="justify"
+            ta-toolbar="[['justifyLeft','justifyCenter','justifyRight','justifyFull']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="10"
+            name="media"
+            ta-toolbar="[['insertImage','insertLink']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+        </div>
+        <text-angular
+          flex
+          ng-model="matchup"
+          ta-text-editor-class="outline-d"
+          ta-target-toolbars="headings,formatting,lists,justify,media">
+        </text-angular>
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Choose Media (Coming Soon!)</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <md-grid-list md-cols="3" md-gutter="1em" md-row-height="4:3">
+
+        <md-grid-tile md-rowspan="2" md-colspan="2" style="background: url('http://placehold.it/400x400&text=Hero+One') no-repeat center center; background-size: cover; ">
+          <md-grid-tile-footer>
+            <h3>Hero One Image</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+        <md-grid-tile md-rowspan="1" md-colspan="1" style="background: url('http://placehold.it/400x400&text=Hero+Two') no-repeat center center; background-size: cover; ">
+          <md-grid-tile-footer>
+            <h3>Hero Two Image</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+        <md-grid-tile md-rowspan="1" md-colspan="1" style="background: url('http://placehold.it/400x400&text=Villian+One') no-repeat center center; background-size: cover; ">
+          <md-grid-tile-footer>
+            <h3>Villian One Image</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+      </md-grid-list>
+    </md-card-content>
+  </md-card>
+</div>

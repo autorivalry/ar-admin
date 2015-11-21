@@ -1,13 +1,15 @@
 <div flex layout="row">
-  <md-sidenav flex layout="column" class="md-sidenav-left md-whiteframe-z4" md-theme="white-bg" md-component-id="settings" md-is-locked-open="toggleSidenav">
+  <md-sidenav flex layout="column" class="md-sidenav-left md-whiteframe-z4"  md-component-id="settings" md-is-locked-open="$mdMedia('gt-md')">
     <md-content flex>
       <md-list>
+        <md-divider></md-divider>
         <md-list-item ui-sref="li.matchups.index" md-ink-ripple>
           Edit My Profile
           <md-divider></md-divider>
         </md-list-item>
         <md-list-item ui-sref="li.matchups.index" md-ink-ripple>
           Matchups
+          <md-divider></md-divider>
         </md-list-item>
       </md-list>
     </md-content>
@@ -16,14 +18,14 @@
   <md-content flex>
     <md-toolbar class="md-whiteframe-z3" ng-show="!showSearch">
       <div class="md-toolbar-tools">
-        <md-button ng-click="toggleSidenav=!toggleSidenav" class="md-icon-button" aria-label="Settings">
+        <md-button hide-gt-md ng-click="AccountCtrl.toggleSidenav()" class="md-icon-button" aria-label="Settings">
           <md-tooltip>
             Settings
           </md-tooltip>
           <md-icon>menu</md-icon>
         </md-button>
         <h2>
-          Auto Rivalry
+          Auto Rivalry <span>> {{ AccountCtrl.data.title }}</span>
         </h2>
         <span flex></span>
         <md-button class="md-icon-button" aria-label="Logout">
