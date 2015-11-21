@@ -117,7 +117,59 @@
 <div flex layout="row">
   <md-card flex>
     <md-card-content>
-      WYSIWYG Editor with upload capabilities, or markdown (but probably WYSIWYG)
+        <div layout="row">
+          <text-angular-toolbar
+            flex="45"
+            name="headings"
+            ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+        </div>
+        <div layout="row">
+          <text-angular-toolbar
+            flex="25"
+            name="formatting"
+            ta-toolbar="[['quote','bold','italics','underline','strikeThrough']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="10"
+            name="lists"
+            ta-toolbar="[['ol','ul']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="20"
+            name="justify"
+            ta-toolbar="[['justifyLeft','justifyCenter','justifyRight','justifyFull']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="10"
+            name="media"
+            ta-toolbar="[['insertImage','insertLink']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+        </div>
+        <text-angular
+          flex
+          ng-model="matchup"
+          ta-text-editor-class="outline-d"
+          ta-target-toolbars="headings,formatting,lists,justify,media">
+        </text-angular>
     </md-card-content>
   </md-card>
 </div>

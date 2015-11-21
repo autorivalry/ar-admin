@@ -14,7 +14,8 @@
       'ui.router',
       'ngMaterial',
       'toastr',
-      'firebase'
+      'firebase',
+      'textAngular'
     ]);
 
 })();
