@@ -7,10 +7,14 @@
       <div layout="row">
 
         <md-input-container flex>
-          <label>Make</label>
-          <md-select ng-model="hero.make">
-            <md-option ng-repeat="make in MatchupsCtrl.makes" value="{{ make }}">
-              {{ make }}
+          <label ng-if="!MatchupsCtrl.loading.makes">Make</label>
+          <label ng-if="MatchupsCtrl.loading.makes">Loading...</label>
+          <md-select ng-model="hero.make" md-on-close="MatchupsCtrl.log(hero.make)" aria-label="Choose a Make">
+            <md-option ng-if="MatchupsCtrl.loading.makes">
+              Loading makes...
+            </md-option>
+            <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make" aria-label="{{make.name}}">
+              {{ make.name }}
             </md-option>
           </md-select>
         </md-input-container>
@@ -20,9 +24,9 @@
 
         <md-input-container flex>
           <label>Model</label>
-          <md-select ng-model="hero.model">
-            <md-option ng-repeat="model in MatchupsCtrl.models" value="{{ model }}">
-              {{ model }}
+          <md-select ng-model="hero.model" md-on-close="MatchupsCtrl.log(hero.model)">
+            <md-option ng-repeat="model in hero.make.models" ng-value="model">
+              {{ model.name }}
             </md-option>
           </md-select>
         </md-input-container>
@@ -30,8 +34,8 @@
         <md-input-container flex="35">
           <label>Year</label>
           <md-select ng-model="hero.year">
-            <md-option ng-repeat="year in MatchupsCtrl.years" value="{{ year }}">
-              {{ year }}
+            <md-option ng-repeat="year in hero.model.years" ng-value="year">
+              {{ year.year }}
             </md-option>
           </md-select>
         </md-input-container>
@@ -52,8 +56,8 @@
         <md-input-container flex>
           <label>Make</label>
           <md-select ng-model="villian.make" class="md-warn">
-            <md-option ng-repeat="make in MatchupsCtrl.makes" value="{{ make }}">
-              {{ make }}
+            <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make">
+              {{ make.name }}
             </md-option>
           </md-select>
         </md-input-container>
@@ -64,8 +68,8 @@
         <md-input-container flex>
           <label>Model</label>
           <md-select ng-model="villian.model" class="md-warn">
-            <md-option ng-repeat="model in MatchupsCtrl.models" value="{{ model }}">
-              {{ model }}
+            <md-option ng-repeat="model in villian.make.models" ng-value="model">
+              {{ model.name }}
             </md-option>
           </md-select>
         </md-input-container>
@@ -73,8 +77,8 @@
         <md-input-container flex="35">
           <label>Year</label>
           <md-select ng-model="villian.year" class="md-warn">
-            <md-option ng-repeat="year in MatchupsCtrl.years" value="{{ year }}">
-              {{ year }}
+            <md-option ng-repeat="year in villian.model.years" value="year">
+              {{ year.year }}
             </md-option>
           </md-select>
         </md-input-container>
@@ -93,8 +97,8 @@
         <md-list-item>
           <div flex layout="row">
             <span flex></span>
-            <span class="md-body-2" flex="30">{{ hero.make }} {{ hero.model }}</span>
-            <span class="md-body-2" flex="30">{{ villian.make }} {{ villian.model }}</span>
+            <span class="md-body-2" flex="30">{{ hero.make.name }} {{ hero.model.name }}</span>
+            <span class="md-body-2" flex="30">{{ villian.make.name }} {{ villian.model.name }}</span>
           </div>
           <md-divider></md-divider>
         </md-list-item>
@@ -103,8 +107,8 @@
           <md-divider></md-divider>
           <div flex layout="row">
             <span class="md-body-2" flex>{{ spec.name }}</span>
-            <span flex="30">{{ hero.model }}'s {{ spec.abbv }}</span>
-            <span flex="30">{{ villian.model }}'s {{ spec.abbv }}</span>
+            <span flex="30">{{ hero.model.name }}'s {{ spec.abbv }}</span>
+            <span flex="30">{{ villian.model.name }}'s {{ spec.abbv }}</span>
           </div>
           <md-checkbox class="md-secondary" ng-model="spec.include"></md-checkbox>
         </md-list-item>
