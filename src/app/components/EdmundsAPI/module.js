@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('arAdmin',
+    .module('EdmundsAPI',
     [
       'ngAnimate',
       'ngCookies',
@@ -16,8 +16,7 @@
       'toastr',
       'firebase',
       'textAngular',
-      'restangular',
-      'EdmundsAPI'
+      'restangular'
     ]);
 
 })();
