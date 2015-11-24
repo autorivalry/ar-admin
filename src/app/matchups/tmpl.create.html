@@ -48,14 +48,14 @@
   </div>
 
   <md-card flex="40">
-    <img ng-src="http://placehold.it/300x150&text=Villian+Car" class="md-card-image" alt="Villian Car">
+    <img ng-src="http://placehold.it/300x150&text=villain+Car" class="md-card-image" alt="villain Car">
     <md-card-content>
-      <h2 class="md-title">Choose a Villian Vehicle:</h2>
+      <h2 class="md-title">Choose a villain Vehicle:</h2>
       <div layout="row">
 
         <md-input-container flex>
           <label>Make</label>
-          <md-select ng-model="villian.make" class="md-warn">
+          <md-select ng-model="villain.make" class="md-warn">
             <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make">
               {{ make.name }}
             </md-option>
@@ -67,8 +67,8 @@
 
         <md-input-container flex>
           <label>Model</label>
-          <md-select ng-model="villian.model" class="md-warn">
-            <md-option ng-repeat="model in villian.make.models" ng-value="model">
+          <md-select ng-model="villain.model" class="md-warn">
+            <md-option ng-repeat="model in villain.make.models" ng-value="model">
               {{ model.name }}
             </md-option>
           </md-select>
@@ -76,8 +76,8 @@
 
         <md-input-container flex="35">
           <label>Year</label>
-          <md-select ng-model="villian.year" class="md-warn">
-            <md-option ng-repeat="year in villian.model.years" value="year">
+          <md-select ng-model="villain.year" class="md-warn">
+            <md-option ng-repeat="year in villain.model.years" value="year">
               {{ year.year }}
             </md-option>
           </md-select>
@@ -98,7 +98,7 @@
           <div flex layout="row">
             <span flex></span>
             <span class="md-body-2" flex="30">{{ hero.make.name }} {{ hero.model.name }}</span>
-            <span class="md-body-2" flex="30">{{ villian.make.name }} {{ villian.model.name }}</span>
+            <span class="md-body-2" flex="30">{{ villain.make.name }} {{ villain.model.name }}</span>
           </div>
           <md-divider></md-divider>
         </md-list-item>
@@ -108,7 +108,7 @@
           <div flex layout="row">
             <span class="md-body-2" flex>{{ spec.name }}</span>
             <span flex="30">{{ hero.model.name }}'s {{ spec.abbv }}</span>
-            <span flex="30">{{ villian.model.name }}'s {{ spec.abbv }}</span>
+            <span flex="30">{{ villain.model.name }}'s {{ spec.abbv }}</span>
           </div>
           <md-checkbox class="md-secondary" ng-model="spec.include"></md-checkbox>
         </md-list-item>
@@ -196,9 +196,9 @@
           </md-grid-tile-footer>
         </md-grid-tile>
 
-        <md-grid-tile md-rowspan="1" md-colspan="1" style="background: url('http://placehold.it/400x400&text=Villian+One') no-repeat center center; background-size: cover; ">
+        <md-grid-tile md-rowspan="1" md-colspan="1" style="background: url('http://placehold.it/400x400&text=villain+One') no-repeat center center; background-size: cover; ">
           <md-grid-tile-footer>
-            <h3>Villian One Image</h3>
+            <h3>villain One Image</h3>
           </md-grid-tile-footer>
         </md-grid-tile>
 
