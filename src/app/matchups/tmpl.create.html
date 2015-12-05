@@ -50,7 +50,7 @@
       <div layout="row">
         <md-input-container flex>
           <label>Style</label>
-          <md-select ng-model="MatchupsCtrl.hero.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.hero.style)" aria-label="Choose a hero style">
+          <md-select ng-model="MatchupsCtrl.hero.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.hero.style, 'hero')" aria-label="Choose a hero style">
             <md-option ng-if="!MatchupsCtrl.styles.hero.styles">
               Choose a make/model/year
             </md-option>
@@ -117,7 +117,7 @@
       <div layout="row">
         <md-input-container flex>
           <label>Style</label>
-          <md-select ng-model="MatchupsCtrl.villain" md-on-close="MatchupsCtrl.log(MatchupsCtrl.villain)" aria-label="Choose a villain style">
+          <md-select ng-model="MatchupsCtrl.villain.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.villain.style, 'villain')" aria-label="Choose a villain style">
             <md-option ng-if="!MatchupsCtrl.styles.villain.styles">
               Choose a make/model/year
             </md-option>

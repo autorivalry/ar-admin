@@ -54,14 +54,16 @@
     }
 
     vm.updateSpecs = function (data, vehicle) {
-      $log.log('loading...');
-      Styles.getDetailsById(api_key, data.id, { view: 'full'})
-        .then(function (success) {
-          vm.hero.detail = success.data;
-          $log.log(vm.hero);
-        }, function (error) {
-          $log.error(error);
-        });
+      if (angular.isDefined(data)) {
+        $log.log(vehicle + ' details loading...');
+        Styles.getDetailsById(api_key, data.id, { view: 'full'})
+          .then(function (success) {
+            vm[vehicle].detail = success.data;
+            $log.log(vm[vehicle]);
+          }, function (error) {
+            $log.error(error);
+          });
+      }
     }
 
     var unsavedToast = $mdToast.simple()

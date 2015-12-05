@@ -9,7 +9,7 @@
   function Makes ($log, $http) {
     return {
       all: function(api_key, params) {
-        var params = angular.merge(params, {fmt: 'json', api_key: api_key});
+        params = angular.merge(params, {fmt: 'json', api_key: api_key});
         // { //fmt=json&api_key={api key}&state=new&view=full
         //   // state: '',
         //   // year: '',
