@@ -55,6 +55,7 @@
 
     vm.updateSpecs = function (data, vehicle) {
       if (angular.isDefined(data)) {
+
         $log.log(vehicle + ' details loading...');
         Styles.getDetailsById(api_key, data.id, { view: 'full'})
           .then(function (success) {
@@ -63,7 +64,17 @@
           }, function (error) {
             $log.error(error);
           });
-      }
+
+        $log.log(vehicle + ' equipment loading...');
+        Specs.getEquipmentById(api_key, data.id, {})
+          .then(function (success) {
+            vm[vehicle].equipment = success.data;
+            $log.log(vm[vehicle]);
+          }, function (error) {
+            $log.error(error);
+          });
+
+      } // end if
     }
 
     var unsavedToast = $mdToast.simple()
