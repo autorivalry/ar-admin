@@ -1,7 +1,7 @@
 <h1 class="md-display-1">Create Matchup</h1>
 <div flex layout="row">
   <md-card flex="40">
-    <img ng-src="http://placehold.it/300x150&text=Hero+Car" class="md-card-image" alt="Hero Car">
+    <!-- <img ng-src="http://placehold.it/300x150&text=Hero+Car" class="md-card-image" alt="Hero Car"> -->
     <md-card-content>
       <h2 class="md-title">Choose a Hero Vehicle:</h2>
       <div layout="row">
@@ -9,7 +9,7 @@
         <md-input-container flex>
           <label ng-if="!MatchupsCtrl.loading.makes">Make</label>
           <label ng-if="MatchupsCtrl.loading.makes">Loading...</label>
-          <md-select ng-model="hero.make" md-on-close="MatchupsCtrl.log(hero.make)" aria-label="Choose a Make">
+          <md-select ng-model="hero.make" aria-label="Choose a Make">
             <md-option ng-if="MatchupsCtrl.loading.makes">
               Loading makes...
             </md-option>
@@ -24,8 +24,11 @@
 
         <md-input-container flex>
           <label>Model</label>
-          <md-select ng-model="hero.model" md-on-close="MatchupsCtrl.log(hero.model)">
-            <md-option ng-repeat="model in hero.make.models" ng-value="model">
+          <md-select ng-model="hero.model" ng-class="{ 'md-warn': hero.make === undefined }">
+            <md-option ng-if="!hero.make">
+              Choose a make first.
+            </md-option>
+            <md-option ng-repeat="model in hero.make.models" ng-value="model" >
               {{ model.name }}
             </md-option>
           </md-select>
@@ -33,13 +36,31 @@
 
         <md-input-container flex="35">
           <label>Year</label>
-          <md-select ng-model="hero.year">
+          <md-select ng-model="hero.year" md-on-close="MatchupsCtrl.updateStyles(hero, 'hero')" ng-class="{ 'md-warn': hero.model === undefined }">
+            <md-option ng-if="!hero.model">
+              Choose a model first.
+            </md-option>
             <md-option ng-repeat="year in hero.model.years" ng-value="year">
               {{ year.year }}
             </md-option>
           </md-select>
         </md-input-container>
       </div><!-- row -->
+
+      <div layout="row">
+        <md-input-container flex>
+          <label>Style</label>
+          <md-select ng-model="MatchupsCtrl.hero.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.hero.style)" aria-label="Choose a hero style">
+            <md-option ng-if="!MatchupsCtrl.styles.hero.styles">
+              Choose a make/model/year
+            </md-option>
+            <md-option ng-repeat="style in MatchupsCtrl.styles.hero.styles" ng-value="style" aria-label="{{ style.name }}">
+              {{ style.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+
     </md-card-content>
   </md-card>
 
@@ -48,15 +69,18 @@
   </div>
 
   <md-card flex="40">
-    <img ng-src="http://placehold.it/300x150&text=villain+Car" class="md-card-image" alt="villain Car">
+    <!-- <img ng-src="http://placehold.it/300x150&text=villain+Car" class="md-card-image" alt="villain Car"> -->
     <md-card-content>
-      <h2 class="md-title">Choose a villain Vehicle:</h2>
+      <h2 class="md-title">Choose a Villain Vehicle:</h2>
       <div layout="row">
 
         <md-input-container flex>
           <label>Make</label>
           <md-select ng-model="villain.make" class="md-warn">
-            <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make">
+            <md-option ng-if="MatchupsCtrl.loading.makes">
+              Loading makes...
+            </md-option>
+            <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make" aria-label="{{make.name}}">
               {{ make.name }}
             </md-option>
           </md-select>
@@ -68,6 +92,9 @@
         <md-input-container flex>
           <label>Model</label>
           <md-select ng-model="villain.model" class="md-warn">
+            <md-option ng-if="!villain.make">
+              Choose a make first.
+            </md-option>
             <md-option ng-repeat="model in villain.make.models" ng-value="model">
               {{ model.name }}
             </md-option>
@@ -76,13 +103,31 @@
 
         <md-input-container flex="35">
           <label>Year</label>
-          <md-select ng-model="villain.year" class="md-warn">
-            <md-option ng-repeat="year in villain.model.years" value="year">
+          <md-select md-on-close="MatchupsCtrl.updateStyles(villain, 'villain')" ng-model="villain.year" class="md-warn">
+            <md-option ng-if="!villain.model">
+              Choose a model first.
+            </md-option>
+            <md-option ng-repeat="year in villain.model.years" ng-value="year">
               {{ year.year }}
             </md-option>
           </md-select>
         </md-input-container>
       </div><!-- row -->
+
+      <div layout="row">
+        <md-input-container flex>
+          <label>Style</label>
+          <md-select ng-model="MatchupsCtrl.villain" md-on-close="MatchupsCtrl.log(MatchupsCtrl.villain)" aria-label="Choose a villain style">
+            <md-option ng-if="!MatchupsCtrl.styles.villain.styles">
+              Choose a make/model/year
+            </md-option>
+            <md-option ng-repeat="style in MatchupsCtrl.styles.villain.styles" ng-value="style" aria-label="{{ style.name }}">
+              {{ style.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+
     </md-card-content>
   </md-card>
 </div>
@@ -97,8 +142,8 @@
         <md-list-item>
           <div flex layout="row">
             <span flex></span>
-            <span class="md-body-2" flex="30">{{ hero.make.name }} {{ hero.model.name }}</span>
-            <span class="md-body-2" flex="30">{{ villain.make.name }} {{ villain.model.name }}</span>
+            <span class="md-body-2" flex="30">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+            <span class="md-body-2" flex="30">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
           </div>
           <md-divider></md-divider>
         </md-list-item>
