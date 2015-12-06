@@ -117,7 +117,7 @@
       <div layout="row">
         <md-input-container flex>
           <label>Style</label>
-          <md-select ng-model="MatchupsCtrl.villain.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.villain.style, 'villain')" aria-label="Choose a villain style">
+          <md-select ng-model="MatchupsCtrl.villain.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.villain.style, 'villain')" aria-label="Choose a villain style" class="md-warn">
             <md-option ng-if="!MatchupsCtrl.styles.villain.styles">
               Choose a make/model/year
             </md-option>
