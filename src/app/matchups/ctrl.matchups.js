@@ -37,20 +37,26 @@
       });
 
     vm.updateStyles = function (data, vehicle) {
-      Styles.getByModelYear(api_key, data.make.name, data.model.name, data.year.year, {})
-        .then(function (success) {
-          if (vehicle === 'hero') {
-            vm.styles.hero = success.data;
-            vm.loading.styles.hero = false;
-          } else if (vehicle === 'villain') {
-            vm.styles.villain = success.data;
-            vm.loading.styles.villain = false;
-          } else {
-            $log.error('Invalid vehicle parameter. Expected "hero" or "villain", received ' + vehicle);
-          }
-        }, function (error) {
-          $log.error(error);
-        });
+      if (angular.isDefined(data) && angular.isDefined(vehicle)) {
+        Styles.getByModelYear(api_key, data.make.name, data.model.name, data.year.year, {})
+          .then(function (success) {
+            if (vehicle === 'hero') {
+              vm.styles.hero = success.data;
+              vm.loading.styles.hero = false;
+            } else if (vehicle === 'villain') {
+              vm.styles.villain = success.data;
+              vm.loading.styles.villain = false;
+            } else {
+              $log.error('Invalid vehicle parameter. Expected "hero" or "villain", received ' + vehicle);
+            }
+          }, function (error) {
+            $log.error(error);
+          });
+      } else if (!angular.isDefined(data)) {
+        $log.error('Expects data param of type object. Recieved: ' + typeof data);
+      } else if (!angular.isDefined(vehicle)) {
+        $log.error('Expects vehicle parameter of type string. Recieved: ' + typeof vehicle);
+      }
     }
 
     vm.updateSpecs = function (data, vehicle) {
