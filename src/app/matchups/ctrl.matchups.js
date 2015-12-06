@@ -6,7 +6,7 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs) {
+  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs, Ratings) {
 
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
@@ -75,6 +75,15 @@
         Specs.getEquipmentById(api_key, data.id, {})
           .then(function (success) {
             vm[vehicle].equipment = success.data;
+            $log.log(vm[vehicle]);
+          }, function (error) {
+            $log.error(error);
+          });
+
+        $log.log(vehicle + ' ratings loading...')
+        Ratings.getRatingsById(api_key, data.id, {})
+          .then( function (success) {
+            vm[vehicle].ratings = success.data;
             $log.log(vm[vehicle]);
           }, function (error) {
             $log.error(error);
