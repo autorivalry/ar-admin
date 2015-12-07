@@ -139,6 +139,95 @@
     <md-card-content>
       <md-tabs md-dynamic-height md-border-bottom>
 
+        <md-tab label="Ratings">
+          <p class="md-body-2">
+            From Edmunds.com:
+          </p>
+          <p class="md-body-1">
+            The Edmunds Testing Team evaluates some 200 cars each year.
+            Each vehicle is driven on a standardized road test loop and visits our test track for instrumented testing in controlled conditions.
+            Our time behind the wheel is used to develop ratings that describe how a car stacks up against its direct rivals in a particular size and price class.
+            Visit <a ng-href="http://www.edmunds.com/new-car-ratings/" alt="Edmunds.com new car ratings list.">http://www.edmunds.com/new-car-ratings/</a> for more details.
+          </p>
+
+          <div layout="row">
+            <div flex="45">
+              <p class="md-body-2" ng-if="hero">
+                {{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }} Summary
+              </p>
+              <p class="md-body-2" ng-if="!hero">
+                Hero Vehicle's Summary
+              </p>
+              <p class="md-body-1">
+                {{ MatchupsCtrl.hero.ratings.summary }}
+              </p>
+            </div><!-- hero -->
+
+            <div flex="10"></div>
+
+            <div flex="45">
+              <p class="md-body-2" ng-if="villain">
+                {{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }} Summary
+              </p>
+              <p class="md-body-2" ng-if="!villain">
+                Villain Vehicle's Summary
+              </p>
+              <p class="md-body-1">
+                {{ MatchupsCtrl.villain.ratings.summary }}
+              </p>
+            </div><!-- villain -->
+          </div><!-- row -->
+
+          <md-list>
+
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="35">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="35">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <div ng-repeat="rating in MatchupsCtrl.hero.ratings.ratings">
+
+              <md-list-item class="md-long-text">
+                <div flex layout="row">
+                  <span flex>{{ rating.title }}</span>
+                  <span class="md-body-2" flex="35">{{ rating.score }} / 10</span>
+                  <span class="md-body-2" flex="35">{{ MatchupsCtrl.villain.ratings.ratings[$index].score }} / 10</span>
+                </div>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.ratings[rating.title].include" aria-label="Include {{ rating.summary }}"></md-checkbox>
+              </md-list-item>
+
+              <md-list-item ng-if="MatchupsCtrl.ratings[rating.title].include" class="md-1-line md-long-text"><!-- start: Hero Summary -->
+                <md-switch class="md-primary" ng-model="MatchupsCtrl.ratings[rating.title].heroSummary" aria-label="Include summary">
+                  <md-tooltip>Include Hero Summary?</md-tooltip>
+                </md-switch>
+                <div class="md-list-item-text">
+                  <p class="md-body-1">
+                    <span class="md-body-2">{{ hero.make.name }} Summary</span><br>
+                    {{ rating.summary }}
+                  </p>
+                </div><!-- md-list-item-text -->
+              </md-list-item><!-- end: Hero Summary -->
+
+              <md-list-item ng-if="MatchupsCtrl.ratings[rating.title].include && villain" class="md-1-line md-long-text"><!-- start: Villain Summary -->
+                <md-switch class="md-primary" ng-model="MatchupsCtrl.ratings[rating.title].villainSummary" aria-label="Include summary">
+                  <md-tooltip>Include Villain Summary?</md-tooltip>
+                </md-switch>
+                <div class="md-list-item-text">
+                  <p class="md-body-1">
+                    <span class="md-body-2">{{ villain.make.name }} Summary</span><br>
+                    {{ MatchupsCtrl.villain.ratings.ratings[$index].summary }}
+                  </p>
+                </div><!-- md-list-item-text -->
+                <md-divider></md-divider>
+              </md-list-item><!-- end: Villain Summary -->
+            </div><!-- end: Rating -->
+          </md-list>
+        </md-tab><!-- Ratings -->
+
         <md-tab label="Engine">
           <md-list>
             <md-list-item>
