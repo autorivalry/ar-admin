@@ -52,9 +52,9 @@
           }, function (error) {
             $log.error(error);
           });
-      } else if (!angular.isDefined(data)) {
+      } else if (angular.isUndefined(data)) {
         $log.error('Expects data param of type object. Recieved: ' + typeof data);
-      } else if (!angular.isDefined(vehicle)) {
+      } else if (angular.isUndefined(vehicle)) {
         $log.error('Expects vehicle parameter of type string. Recieved: ' + typeof vehicle);
       }
     }
