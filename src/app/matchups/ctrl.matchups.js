@@ -62,32 +62,41 @@
     vm.updateSpecs = function (data, vehicle) {
       if (angular.isDefined(data)) {
 
-        $log.log(vehicle + ' details loading...');
         Styles.getDetailsById(api_key, data.id, { view: 'full'})
           .then(function (success) {
             vm[vehicle].detail = success.data;
+            $log.log(vehicle + ' details loading...');
             $log.log(vm[vehicle]);
           }, function (error) {
             $log.error(error);
           });
 
-        $log.log(vehicle + ' equipment loading...');
         Specs.getEquipmentById(api_key, data.id, {})
           .then(function (success) {
             vm[vehicle].equipment = success.data;
+            $log.log(vehicle + ' equipment loading...');
             $log.log(vm[vehicle]);
           }, function (error) {
             $log.error(error);
           });
 
-        $log.log(vehicle + ' ratings loading...')
         Ratings.getRatingsById(api_key, data.id, {})
-          .then( function (success) {
+          .then(function (success) {
             vm[vehicle].ratings = success.data;
+            $log.log(vehicle + ' ratings loading...')
             $log.log(vm[vehicle]);
           }, function (error) {
             $log.error(error);
           });
+
+        Ratings.getReviewsByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
+          .then(function (success) {
+            vm[vehicle].reviews = success.data;
+            $log.log(vehicle + ' reviews loading...')
+            $log.log(vm[vehicle]);
+          }, function (error) {
+            $log.error(error);
+          })
 
       } // end if
     }
