@@ -453,10 +453,13 @@
     <md-card-content>
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="Hero: {{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}">
+
+          <div ng-if="!hero" layout="row" layout-align="center center">
+            <h3 class="md-display-1">Choose a hero vehicle first</h3>
+          </div><!-- row -->
+
           <md-list>
             <div ng-repeat="review in MatchupsCtrl.hero.reviews.reviews">
-              <md-divider ng-if="$first"></md-divider>
-
               <md-list-item ng-hide="showReview" class="md-3-line md-offset" ng-click="showReview = true">
                 <div class="md-list-item-text" layout="column">
                   <h4>
@@ -472,69 +475,159 @@
                   </p>
                 </div>
                 <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                <md-divider></md-divider>
               </md-list-item>
 
-              <md-list-item ng-show="showReview" layout="row" layout-padding>
-                <md-card ng-click="showReview = false" flex layout-padding>
-                  <h3 class="md-headline">{{ review.title }}</h3>
-                  <div flex layout="row">
-                    <div flex="45">
-                      <p>
-                        Performance Rating: {{ review.performanceRatingDto.performanceRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.performanceRatingDto.performanceRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
+              <md-list-item md-no-ink ng-show="showReview" layout="row">
+                <div class="padding-vertical-20" flex layout="row">
+                  <md-card flex layout="row">
+                    <md-list flex>
 
-                    <div flex="10"></div>
+                      <md-list-item layout="row">
+                        <div flex>
+                          <h3 class="md-headline" flex>{{ review.title }}</h3>
+                          <h4 class="md-body-2">Written by {{ review.author.authorName }} on {{ review.created | date }}</h4>
+                        </div><!-- flex -->
+                        <md-divider></md-divider>
+                      </md-list-item>
 
-                    <div flex="45" flex-offset="10">
-                      <p>
-                        Comfort Rating: {{ review.comfortRatingDto.comfortRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.comfortRatingDto.comfortRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
-                  </div><!-- row -->
-                  <div flex layout="row">
-                    <div flex="45">
-                      <p>
-                        Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.interiorRatingDto.interiorRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
+                      <md-list-item layout="row" ng-model="topping.wanted">
+                        <div flex>
+                          Include review in matchup?
+                          <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
 
-                    <div flex="10"></div>
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Performance Rating: {{ review.performanceRatingDto.performanceRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Comfort Rating: {{ review.comfortRatingDto.comfortRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33" flex-offset="10">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
 
-                    <div flex="45" flex-offset="10">
-                      <p>
-                        Reliability Rating: {{ review.reliabilityRatingDto.reliabilityRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.reliabilityRatingDto.reliabilityRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
-                  </div><!-- row -->
-                  <h4 class="md-body-2">
-                    Review Text:
-                  </h4>
-                  <p class="md-body-1">
-                    {{ review.text }}
-                  </p>
-                  <h4 class="md-body-2">
-                    Suggested Improvements:
-                  </h4>
-                  <p class="md-body-1">
-                    {{ review.suggestedImprovements }}
-                  </p>
-                </md-card>
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Safety Rating: {{ review.safetyRatingDto.safetyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Technology Rating: {{ review.technologyRatingDto.technologyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <div flex>
+                          <p class="md-body-1">
+                            {{ review.text }}
+                          </p>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.favoriteFeatures">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Favorite Features</span>
+                            <br>
+                            {{ review.favoriteFeatures }}
+                          </p>
+                        </div><!-- row -->
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.suggestedImprovements">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Suggested Improvements</span>
+                            <br>
+                            {{ review.suggestedImprovements }}
+                          </p>
+                        </div><!-- row -->
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary md-ink-ripple" ng-click="showReview = false" aria-label="Close review">
+                          Close
+                          <md-icon>close</md-icon>
+                        </md-button>
+                      </md-list-item>
+                    </md-list>
+
+
+                  </md-card>
+                </div><!-- padding -->
               </md-list-item>
-
-              <md-divider></md-divider>
             </div><!-- reviews -->
           </md-list>
         </md-tab><!-- Hero Tab -->
         <md-tab label="Villain: {{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}">
+
+          <div ng-if="!villain" layout="row" layout-align="center center">
+            <h3 class="md-display-1">Choose a villain vehicle first</h3>
+          </div><!-- row -->
+
           <md-list>
             <div ng-repeat="review in MatchupsCtrl.villain.reviews.reviews">
-              <md-divider ng-if="$first"></md-divider>
-
               <md-list-item ng-hide="showReview" class="md-3-line md-offset" ng-click="showReview = true">
                 <div class="md-list-item-text" layout="column">
                   <h4>
@@ -550,61 +643,148 @@
                   </p>
                 </div>
                 <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                <md-divider></md-divider>
               </md-list-item>
 
-              <md-list-item ng-show="showReview" layout="row" layout-padding>
-                <md-card ng-click="showReview = false" flex layout-padding>
-                  <h3 class="md-headline">{{ review.title }}</h3>
-                  <div flex layout="row">
-                    <div flex="45">
-                      <p>
-                        Performance Rating: {{ review.performanceRatingDto.performanceRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.performanceRatingDto.performanceRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
+              <md-list-item md-no-ink ng-show="showReview" layout="row">
+                <div class="padding-vertical-20" flex layout="row">
+                  <md-card flex layout="row">
+                    <md-list flex>
 
-                    <div flex="10"></div>
+                      <md-list-item layout="row">
+                        <div flex>
+                          <h3 class="md-headline" flex>{{ review.title }}</h3>
+                          <h4 class="md-body-2">Written by {{ review.author.authorName }} on {{ review.created | date }}</h4>
+                        </div><!-- flex -->
+                        <md-divider></md-divider>
+                      </md-list-item>
 
-                    <div flex="45" flex-offset="10">
-                      <p>
-                        Comfort Rating: {{ review.comfortRatingDto.comfortRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.comfortRatingDto.comfortRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
-                  </div><!-- row -->
-                  <div flex layout="row">
-                    <div flex="45">
-                      <p>
-                        Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.interiorRatingDto.interiorRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
+                      <md-list-item layout="row" ng-model="topping.wanted">
+                        <div flex>
+                          Include review in matchup?
+                          <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
 
-                    <div flex="10"></div>
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Performance Rating: {{ review.performanceRatingDto.performanceRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Comfort Rating: {{ review.comfortRatingDto.comfortRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33" flex-offset="10">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
 
-                    <div flex="45" flex-offset="10">
-                      <p>
-                        Reliability Rating: {{ review.reliabilityRatingDto.reliabilityRating }}/5
-                      </p>
-                      <md-progress-linear md-mode="determinate" ng-value="{{ review.reliabilityRatingDto.reliabilityRating * 20 }}"></md-progress-linear>
-                    </div><!-- 45 -->
-                  </div><!-- row -->
-                  <h4 class="md-body-2">
-                    Review Text:
-                  </h4>
-                  <p class="md-body-1">
-                    {{ review.text }}
-                  </p>
-                  <h4 class="md-body-2">
-                    Suggested Improvements:
-                  </h4>
-                  <p class="md-body-1">
-                    {{ review.suggestedImprovements }}
-                  </p>
-                </md-card>
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Safety Rating: {{ review.safetyRatingDto.safetyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Technology Rating: {{ review.technologyRatingDto.technologyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <div flex>
+                          <p class="md-body-1">
+                            {{ review.text }}
+                          </p>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.favoriteFeatures">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Favorite Features</span>
+                            <br>
+                            {{ review.favoriteFeatures }}
+                          </p>
+                        </div><!-- row -->
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.suggestedImprovements">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Suggested Improvements</span>
+                            <br>
+                            {{ review.suggestedImprovements }}
+                          </p>
+                        </div><!-- row -->
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary md-ink-ripple" ng-click="showReview = false" aria-label="Close review">
+                          Close
+                          <md-icon>close</md-icon>
+                        </md-button>
+                      </md-list-item>
+                    </md-list>
+
+
+                  </md-card>
+                </div><!-- padding -->
               </md-list-item>
-
-              <md-divider></md-divider>
             </div><!-- reviews -->
           </md-list>
         </md-tab><!-- Villain Tab -->
