@@ -1,4 +1,4 @@
-http://developer.edmunds.com/api-documentation/media/photos/v2/02_photos_by_style_id/api-description.html
+http://developer.edmunds.com/api-documentation/vehicle/service_safety/v2/02_by_style_id/api-description.html
 
 (function() {
   'use strict';
@@ -10,18 +10,18 @@ http://developer.edmunds.com/api-documentation/media/photos/v2/02_photos_by_styl
   /** @ngInject */
   function Photos ($log, $http) {
     return {
-      getPhotosById: function (api_key, style_id, params) {
+      getRatingsById: function (api_key, style_id, params) {
         params = angular.merge(params, { api_key: api_key, fmt: 'json'});
-        var url = 'https://api.edmunds.com/api/media/v2/styles/' + style_id + '/photos';
+        var url = 'https://api.edmunds.com/api/media/v2/styles/' + style_id + '/safety';
         return $http({
           method: 'GET',
           url: url,
           params: params
         });
       },
-      getPhotosByModelYear: function (api_key, vehicle_make, vehicle_model, vehicle_year, params) {
+      getRatingsByModelYear: function (api_key, vehicle_make, vehicle_model, vehicle_year, params) {
         params = angular.merge(params, { api_key: api_key, fmt: 'json'});
-        var url = 'https://api.edmunds.com/api/media/v2/' + vehicle_make + '/' + vehicle_model + '/' + vehicle_year + '/photos';
+        var url = 'https://api.edmunds.com/api/media/v2/' + vehicle_make + '/' + vehicle_model + '/' + vehicle_year + '/safety';
         return $http({
           method: 'GET',
           url: url,

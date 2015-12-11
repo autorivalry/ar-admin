@@ -6,7 +6,7 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs, Ratings) {
+  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs, Ratings, Photos) {
 
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
@@ -93,6 +93,15 @@
           .then(function (success) {
             vm[vehicle].reviews = success.data;
             $log.log(vehicle + ' reviews loading...')
+            $log.log(vm[vehicle]);
+          }, function (error) {
+            $log.error(error);
+          })
+
+        Photos.getPhotosByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
+          .then(function (success) {
+            vm[vehicle].photos = success.data;
+            $log.log(vehicle + ' photos loading...')
             $log.log(vm[vehicle]);
           }, function (error) {
             $log.error(error);
