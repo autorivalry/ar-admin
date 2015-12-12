@@ -431,9 +431,52 @@
         </md-tab><!-- Body -->
 
         <md-tab label="Safety">
-          <div layout="row" layout-align="center center">
-            <h3 class="md-display-1">Coming Soon!</h3>
-          </div>
+
+          <h3 class="md-headline" ng-if="MatchupsCtrl.hero.safety.nhtsa">National Highway Traffic Safety Administration</h3>
+          <md-list ng-if="MatchupsCtrl.hero.safety.nhtsa">
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="25">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="25">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item ng-repeat="feature in MatchupsCtrl.hero.safety.nhtsa.categories"><!-- start: Number of Doors -->
+              <div flex layout="row">
+                <span flex>{{ feature.category }}</span>
+                <span class="md-body-1" flex="25" layout-align="center center">{{ feature.overall }}</span>
+                <span class="md-body-1" flex="25" layout-align="center center">{{ MatchupsCtrl.hero.safety.nhtsa.categories[$index].overall }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.safety[feature.category].include" aria-label="Include {{ feature.category }}"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Number of Doors -->
+          </md-list>
+
+          <h3 class="md-headline" ng-if="MatchupsCtrl.hero.safety.iihs">Insurance Institute for Highway Safety</h3>
+          <md-list ng-if="MatchupsCtrl.hero.safety.iihs">
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-1" flex="25">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-1" flex="25">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item ng-repeat="feature in MatchupsCtrl.hero.safety.iihs"><!-- start: Number of Doors -->
+              <div flex layout="row">
+                <span flex>{{ feature.category }}</span>
+                <span class="md-body-2" flex="25" layout-align="center center">{{ feature.value }}</span>
+                <span class="md-body-2" flex="25" layout-align="center center">{{ MatchupsCtrl.villain.safety.iihs[$index].value }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.body.doors.include" aria-label="Include compression ratio"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Number of Doors -->
+          </md-list>
+
+
         </md-tab>
 
         <md-tab label="Electronics">

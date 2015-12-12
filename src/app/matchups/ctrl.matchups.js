@@ -6,7 +6,7 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs, Ratings, Photos) {
+  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs, Ratings, Photos, Safety) {
 
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
@@ -98,14 +98,23 @@
             $log.error(error);
           })
 
-        Photos.getPhotosByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
+        Safety.getRatingsByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
           .then(function (success) {
-            vm[vehicle].photos = success.data;
-            $log.log(vehicle + ' photos loading...')
+            vm[vehicle].safety = success.data;
+            $log.log(vehicle + ' safety loading...')
             $log.log(vm[vehicle]);
           }, function (error) {
-            $log.error(error);
-          })
+            $log.error(error)
+          });
+
+        // Photos.getPhotosByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
+        //   .then(function (success) {
+        //     vm[vehicle].photos = success.data;
+        //     $log.log(vehicle + ' photos loading...')
+        //     $log.log(vm[vehicle]);
+        //   }, function (error) {
+        //     $log.error(error);
+        //   })
 
       } // end if
     }
