@@ -1,3 +1,19 @@
+<h1 class="md-display-1">Create Title</h1>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <md-input-container class="md-headline">
+        <label>Matchup Title</label>
+        <input ng-model="MatchupsCtl.matchup.title" placeholder="Hero vs. Villain">
+      </md-input-container>
+      <p class="md-body-1">
+        Give your matchup a title that you will easily recognize.
+        This is how you will be able to reference it again if you need to make changes or edits.
+      </p>
+    </md-card-content>
+  </md-card>
+</div><!-- Create Title -->
+
 <h1 class="md-display-1">Create Matchup</h1>
 <div flex layout="row">
   <md-card flex="40">
@@ -131,7 +147,6 @@
     </md-card-content>
   </md-card>
 </div>
-
 
 <h2 class="md-headline">Build Your Table</h2>
 <div flex layout="row">
@@ -431,7 +446,6 @@
         </md-tab><!-- Body -->
 
         <md-tab label="Safety">
-
           <h3 class="md-headline" ng-if="MatchupsCtrl.hero.safety.nhtsa">National Highway Traffic Safety Administration</h3>
           <md-list ng-if="MatchupsCtrl.hero.safety.nhtsa">
             <md-list-item>
@@ -475,8 +489,6 @@
               <md-divider></md-divider>
             </md-list-item><!-- end: Number of Doors -->
           </md-list>
-
-
         </md-tab>
 
         <md-tab label="Electronics">
