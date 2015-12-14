@@ -6,11 +6,13 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController ($log, $mdToast, $mdSticky, Makes, Styles, Specs, Ratings, Photos, Safety) {
+  function MatchupsController (CurrentAuth, $log, $mdToast, $mdSticky, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
 
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
     vm.styles = new Object;
+    var toastDeployed = false;
+    var savedMatchup = false;
 
     vm.loading = {
       makes: true,
@@ -115,7 +117,7 @@
         //   }, function (error) {
         //     $log.error(error);
         //   })
-
+        vm.saveChanges(vm.matchup);
       } // end if
     }
 
@@ -126,15 +128,48 @@
       .position('bottom right')
       .hideDelay(false);
 
+
+    // TODO: this should probably be a service
+    // vm.saveChanges = function (data, function) {}
     vm.saveChanges = function (data) {
-      $log.log(data);
-      $mdToast.show(
-        unsavedToast
-      ).then( function (response) {
-        if ( response == 'ok' ) {
-          $log.log('Saved the Matchup')
-        }
-      });
+      if (toastDeployed === false) {
+        // the toast isn't displayed. Deploy the toast!
+        $log.log('Toast is not deployed');
+        toastDeployed = true;
+        $mdToast.show(
+          unsavedToast
+        ).then( function (response) {
+          if ( response == 'ok' ) {
+            saveMatchup();
+            $log.log('Saved the Matchup');
+            // $log.log(CurrentAuth);
+            toastDeployed = false;
+          }
+        });
+
+      } else {
+        // the toast is already showing. Update the toast!
+        $log.log('Toast is already deployed');
+      }
+    }
+
+    var saveMatchup = function () {
+      // if vm.matchup has an id
+      // then it is already saved to firebase and we can update it
+      if (savedMatchup) {
+        $log.log('Updated the matchup instead of a new save')
+      // otherwise we have never saved the vm.matchup object before
+      // and should add it to the array
+      } else {
+        Matchups.$array
+          .$add(_.merge(vm.matchup, {"uid": CurrentAuth.uid }))
+          .then( function (ref) {
+            savedMatchup = ref.key();
+            $log.log('Saved matchup with id = ' + savedMatchup);
+          }, function (error) {
+            $log.error(error);
+          })
+      }
     }
 
   }
