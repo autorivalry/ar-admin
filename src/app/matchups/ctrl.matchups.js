@@ -11,6 +11,7 @@
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
     vm.styles = new Object;
+    vm.matchup = new Object;
     var toastDeployed = false;
     var savedMatchup = false;
 
@@ -63,30 +64,36 @@
 
     vm.updateSpecs = function (data, vehicle) {
       if (angular.isDefined(data)) {
+        vm.matchup[vehicle] = {
+          style_id: data.id
+        }
 
         Styles.getDetailsById(api_key, data.id, { view: 'full'})
           .then(function (success) {
             vm[vehicle].detail = success.data;
-            $log.log(vehicle + ' details loading...');
-            $log.log(vm[vehicle]);
+            vm.matchup[vehicle].detail = success.data;
           }, function (error) {
             $log.error(error);
           });
 
-        Specs.getEquipmentById(api_key, data.id, {})
-          .then(function (success) {
-            vm[vehicle].equipment = success.data;
-            $log.log(vehicle + ' equipment loading...');
-            $log.log(vm[vehicle]);
-          }, function (error) {
-            $log.error(error);
-          });
+        // Specs.getEquipmentById(api_key, data.id, {})
+        //   .then(function (success) {
+        //     vm[vehicle].equipment = success.data;
+        //     $log.log(vehicle + ' equipment loading...');
+        //     $log.log(vm[vehicle]);
+        //   }, function (error) {
+        //     $log.error(error);
+        //   });
 
         Ratings.getRatingsById(api_key, data.id, {})
           .then(function (success) {
             vm[vehicle].ratings = success.data;
-            $log.log(vehicle + ' ratings loading...')
-            $log.log(vm[vehicle]);
+            vm.matchup[vehicle].edmunds_ratings = {
+              "date": success.data.date,
+              "grade": success.data.grade,
+              "ratings": success.data.ratings,
+              "summary": success.data.summary
+            };
           }, function (error) {
             $log.error(error);
           });
@@ -94,8 +101,7 @@
         Ratings.getReviewsByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
           .then(function (success) {
             vm[vehicle].reviews = success.data;
-            $log.log(vehicle + ' reviews loading...')
-            $log.log(vm[vehicle]);
+            vm.matchup[vehicle].reviews = success.data;
           }, function (error) {
             $log.error(error);
           })
@@ -103,8 +109,13 @@
         Safety.getRatingsByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
           .then(function (success) {
             vm[vehicle].safety = success.data;
-            $log.log(vehicle + ' safety loading...')
-            $log.log(vm[vehicle]);
+            vm.matchup[vehicle].safety = new Object;
+            if (success.data.iihs) {
+              vm.matchup[vehicle].safety.iihs = success.data.iihs;
+            }
+            if (success.data.nhtsa) {
+              vm.matchup[vehicle].safety.nhtsa = success.data.nhtsa;
+            }                        
           }, function (error) {
             $log.error(error)
           });
@@ -134,7 +145,7 @@
     vm.saveChanges = function (data) {
       if (toastDeployed === false) {
         // the toast isn't displayed. Deploy the toast!
-        $log.log('Toast is not deployed');
+        $log.log('Toast is not deployed. Deploying toast.');
         toastDeployed = true;
         $mdToast.show(
           unsavedToast
@@ -149,7 +160,7 @@
 
       } else {
         // the toast is already showing. Update the toast!
-        $log.log('Toast is already deployed');
+        $log.log('Toast is already deployed. Updating toast.');
       }
     }
 
@@ -157,7 +168,11 @@
       // if vm.matchup has an id
       // then it is already saved to firebase and we can update it
       if (savedMatchup) {
-        $log.log('Updated the matchup instead of a new save')
+        vm.matchup
+          .$save()
+          .then(function () {
+            $log.log('Updated the matchup (id: ' + vm.matchup.$id + ') instead of a new save');
+          });
       // otherwise we have never saved the vm.matchup object before
       // and should add it to the array
       } else {
@@ -165,7 +180,12 @@
           .$add(_.merge(vm.matchup, {"uid": CurrentAuth.uid }))
           .then( function (ref) {
             savedMatchup = ref.key();
-            $log.log('Saved matchup with id = ' + savedMatchup);
+            vm.matchup = Matchups.$object(savedMatchup);
+            vm.matchup.$loaded()
+              .then(function () {
+                $log.log('Saved matchup with id = ' + vm.matchup.$id);
+              });
+
           }, function (error) {
             $log.error(error);
           })
