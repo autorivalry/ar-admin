@@ -260,7 +260,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.cylinder }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.cylinder }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.cylinder.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_cylinder" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: cylinders -->
 
@@ -270,7 +270,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.displacement }} cc</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.displacement }} cc</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.displacement.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_displacement" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Displacement -->
 
@@ -280,7 +280,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.horsepower }} @ {{ MatchupsCtrl.hero.detail.engine.rpm.horsepower }} rpm</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.horsepower }} @ {{ MatchupsCtrl.villain.detail.engine.rpm.horsepower }} rpm</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.horsepower.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_horsepower" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Horsepower -->
 
@@ -290,7 +290,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.torque }} @ {{ MatchupsCtrl.hero.detail.engine.rpm.torque }} rpm</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.torque }} @ {{ MatchupsCtrl.villain.detail.engine.rpm.torque }} rpm</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.torque.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_torque" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Torque -->
 
@@ -300,7 +300,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.MPG.city }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.MPG.city }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.mpg.city.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_city_mpg" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: MPG City -->
 
@@ -310,7 +310,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.MPG.highway }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.MPG.highway }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.mpg.highway.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_highway_mpg" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: MPG Highway -->
 
@@ -320,7 +320,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.fuelType }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.fuelType }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.fuelType.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_fuel_type" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: fuel type -->
 
@@ -330,7 +330,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.compressionRatio }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.compressionRatio }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.engine.compression.include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_compression" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: compression ratio -->
 
