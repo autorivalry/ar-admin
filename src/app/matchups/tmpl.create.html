@@ -212,11 +212,11 @@
                   <span class="md-body-2" flex="35">{{ rating.score }} / 10</span>
                   <span class="md-body-2" flex="35">{{ MatchupsCtrl.villain.ratings.ratings[$index].score }} / 10</span>
                 </div>
-                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.ratings[rating.title].include" aria-label="Include {{ rating.summary }}" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].include" aria-label="Include {{ rating.summary }}" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               </md-list-item>
 
-              <md-list-item ng-if="MatchupsCtrl.matchup.ratings[rating.title].include" class="md-1-line md-long-text"><!-- start: Hero Summary -->
-                <md-switch class="md-primary" ng-model="MatchupsCtrl.matchup.ratings[rating.title].heroSummary" aria-label="Include summary" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)">
+              <md-list-item ng-if="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].include" class="md-1-line md-long-text"><!-- start: Hero Summary -->
+                <md-switch class="md-primary" ng-model="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].hero_summary" aria-label="Include summary" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)">
                   <md-tooltip>Include Hero Summary?</md-tooltip>
                 </md-switch>
                 <div class="md-list-item-text">
@@ -227,8 +227,8 @@
                 </div><!-- md-list-item-text -->
               </md-list-item><!-- end: Hero Summary -->
 
-              <md-list-item ng-if="MatchupsCtrl.matchup.ratings[rating.title].include && villain" class="md-1-line md-long-text"><!-- start: Villain Summary -->
-                <md-switch class="md-primary" ng-model="MatchupsCtrl.ratings[rating.title].villainSummary" aria-label="Include summary">
+              <md-list-item ng-if="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].include && villain" class="md-1-line md-long-text"><!-- start: Villain Summary -->
+                <md-switch class="md-primary" ng-model="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].villain_summary" aria-label="Include summary" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)">
                   <md-tooltip>Include Villain Summary?</md-tooltip>
                 </md-switch>
                 <div class="md-list-item-text">
