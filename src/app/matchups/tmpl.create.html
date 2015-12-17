@@ -354,7 +354,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.drivenWheels }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.drivenWheels }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.transmission.drive.include" aria-label="Include compression ratio"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.transmission.include_drive" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Drive Type -->
 
@@ -364,7 +364,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.transmission.numberOfSpeeds }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.transmission.numberOfSpeeds }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.transmission.speeds.include" aria-label="Include compression ratio"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.transmission.include_speeds" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Speeds -->
 
@@ -374,7 +374,7 @@
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.transmission.transmissionType }}</span>
                 <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.transmission.transmissionType }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.transmission.type.include" aria-label="Include compression ratio"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.transmission.include_type" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Transmission Type -->
 
