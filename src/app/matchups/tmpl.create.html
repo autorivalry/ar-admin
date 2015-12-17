@@ -463,7 +463,7 @@
                 <span class="md-body-1" flex="25" layout-align="center center">{{ feature.overall }}</span>
                 <span class="md-body-1" flex="25" layout-align="center center">{{ MatchupsCtrl.hero.safety.nhtsa.categories[$index].overall }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.safety[feature.category].include" aria-label="Include {{ feature.category }}"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.safety.nhtsa.categories[$index].include" aria-label="Include {{ feature.category }}" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Number of Doors -->
           </md-list>
@@ -485,7 +485,7 @@
                 <span class="md-body-2" flex="25" layout-align="center center">{{ feature.value }}</span>
                 <span class="md-body-2" flex="25" layout-align="center center">{{ MatchupsCtrl.villain.safety.iihs[$index].value }}</span>
               </div>
-              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.body.doors.include" aria-label="Include compression ratio"></md-checkbox>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.safety.iihs[$index].include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
               <md-divider></md-divider>
             </md-list-item><!-- end: Number of Doors -->
           </md-list>
