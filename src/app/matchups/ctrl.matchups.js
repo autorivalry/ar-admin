@@ -115,7 +115,7 @@
             }
             if (success.data.nhtsa) {
               vm.matchup[vehicle].safety.nhtsa = success.data.nhtsa;
-            }                        
+            }
           }, function (error) {
             $log.error(error)
           });
@@ -172,6 +172,7 @@
           .$save()
           .then(function () {
             $log.log('Updated the matchup (id: ' + vm.matchup.$id + ') instead of a new save');
+            $log.log(vm.matchup);
           });
       // otherwise we have never saved the vm.matchup object before
       // and should add it to the array
@@ -184,6 +185,7 @@
             vm.matchup.$loaded()
               .then(function () {
                 $log.log('Saved matchup with id = ' + vm.matchup.$id);
+                $log.log(vm.matchup);
               });
 
           }, function (error) {
