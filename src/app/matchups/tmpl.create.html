@@ -901,7 +901,8 @@
         </div>
         <text-angular
           flex
-          ng-model="matchup"
+          ng-model="MatchupsCtrl.matchup.article"
+          ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"
           ta-text-editor-class="outline-d"
           ta-target-toolbars="headings,formatting,lists,justify,media">
         </text-angular>
