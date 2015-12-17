@@ -529,7 +529,7 @@
                     Written by {{ review.author.authorName }} on {{ review.created }}
                   </p>
                 </div>
-                <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
                 <md-divider></md-divider>
               </md-list-item>
 
@@ -549,7 +549,7 @@
                       <md-list-item layout="row" ng-model="topping.wanted">
                         <div flex>
                           Include review in matchup?
-                          <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                          <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
                         </div>
                         <md-divider></md-divider>
                       </md-list-item>
@@ -697,7 +697,7 @@
                     Written by {{ review.author.authorName }} on {{ review.created }}
                   </p>
                 </div>
-                <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.villain.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
                 <md-divider></md-divider>
               </md-list-item>
 
@@ -717,7 +717,7 @@
                       <md-list-item layout="row" ng-model="topping.wanted">
                         <div flex>
                           Include review in matchup?
-                          <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                          <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.villain.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
                         </div>
                         <md-divider></md-divider>
                       </md-list-item>
