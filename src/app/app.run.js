@@ -6,14 +6,14 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log, $rootScope, $state) {
+  function runBlock($log, $rootScope, $state, $mdToast) {
 
     var vm = new Object;
     $log.debug('runBlock end');
 
     //
     vm.on = $rootScope.$on();
-    vm.on("$stateChangeError", function($log, event, toState, toParams, fromState, fromParams, error) {
+    vm.on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
       // throw the error
       $log.error(error);
 
@@ -23,6 +23,19 @@
         $state.go("login");
       }
     });
+
+    // TODO: Why isn't this working?
+
+    // vm.on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams, error) {
+    //   $mdToast.cancel();
+    // });
+
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams, error) {
+      $mdToast.cancel()
+        .then( function (response) {
+          $rootScope.toastDeployed = false;
+        });
+    })
 
   }
 

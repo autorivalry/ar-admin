@@ -6,13 +6,13 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController (CurrentAuth, $log, $mdToast, $mdSticky, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
+  function MatchupsController (CurrentAuth, $rootScope, $log, $mdToast, $mdSticky, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
 
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
     vm.styles = new Object;
     vm.matchup = new Object;
-    var toastDeployed = false;
+    $rootScope.toastDeployed = false;
     var savedMatchup = false;
 
     vm.loading = {
@@ -143,10 +143,10 @@
     // TODO: this should probably be a service
     // vm.saveChanges = function (data, function) {}
     vm.saveChanges = function (data) {
-      if (toastDeployed === false) {
+      if ($rootScope.toastDeployed === false) {
         // the toast isn't displayed. Deploy the toast!
         $log.log('Toast is not deployed. Deploying toast.');
-        toastDeployed = true;
+        $rootScope.toastDeployed = true;
         $mdToast.show(
           unsavedToast
         ).then( function (response) {
@@ -154,7 +154,7 @@
             saveMatchup();
             $log.log('Saved the Matchup');
             // $log.log(CurrentAuth);
-            toastDeployed = false;
+            $rootScope.toastDeployed = false;
           }
         });
 

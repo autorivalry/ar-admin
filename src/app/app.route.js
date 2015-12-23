@@ -25,7 +25,7 @@
           // Auth refers to our $firebaseAuth wrapper in the example above
           "CurrentAuth": ["Auth", function(Auth) {
             // $waitForAuth returns a promise so the resolve waits for it to complete
-            return Auth.$waitForAuth();
+            return Auth.$requireAuth();
           }]
         }
       })
@@ -39,8 +39,17 @@
       .state('li.matchups.index', {
         url: '/index',
         templateUrl: 'app/matchups/tmpl.index.html',
+        controller: 'MatchupsIndexController',
+        controllerAs: 'MatchupsIndexCtrl',
         data: {
           title: 'Matchups Index'
+        }
+      })
+      .state('li.matchups.detail', {
+        url: '/id/:id',
+        templateUrl: 'app/matchups/tmpl.detail.html',
+        data: {
+          title: 'Matchup Detail'
         }
       })
       .state('li.matchups.create', {

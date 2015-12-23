@@ -1,1 +1,13 @@
-<h1 class="md-display-1">Matchups Index</h1>
+<h1 class="md-display-1">My Matchups</h1>
+<div flex layout="row">
+  <md-card flex>
+    <div ng-if="!MatchupsIndexCtrl.matchupsLoaded" flex layout layout-padding layout-align="center center">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list-item ng-repeat="matchup in MatchupsIndexCtrl.myMatchups" ng-click="AccountCtrl.go('li.matchups.detail', { id: matchup.$id })">
+      {{ matchup.title }}
+      <md-icon ng-click="grabCode($event)">code</md-icon>
+      <md-divider></md-divider>
+    </md-list-item>
+  </md-card>
+</div><!-- Create Title -->
