@@ -29,11 +29,16 @@ gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
 
+gulp.task('cname', function () {
+  return gulp.src('./CNAME')
+    .pipe(gulp.dest('./dist/'))
+})
+
 /**
  * Build the directory and publish to gh-pages
  *
  */
-gulp.task('deploy', ['build'], function() {
+gulp.task('deploy', ['build', 'cname'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
