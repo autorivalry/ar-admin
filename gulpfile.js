@@ -33,7 +33,7 @@ gulp.task('default', ['clean'], function () {
  * Build the directory and publish to gh-pages
  *
  */
-gulp.task('deploy', ['default'], function() {
+gulp.task('deploy', ['build'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
