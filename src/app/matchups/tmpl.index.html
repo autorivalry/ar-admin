@@ -6,7 +6,7 @@
     </div>
     <md-list-item ng-repeat="matchup in MatchupsIndexCtrl.myMatchups" ng-click="AccountCtrl.go('li.matchups.detail', { id: matchup.$id })">
       {{ matchup.title }}
-      <md-icon ng-click="grabCode($event)">code</md-icon>
+      <md-icon class="material-icons md-secondary" ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">code</md-icon>
       <md-divider></md-divider>
     </md-list-item>
   </md-card>
