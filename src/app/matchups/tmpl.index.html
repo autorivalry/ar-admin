@@ -4,9 +4,24 @@
     <div ng-if="!MatchupsIndexCtrl.matchupsLoaded" flex layout layout-padding layout-align="center center">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-list-item ng-repeat="matchup in MatchupsIndexCtrl.myMatchups" ng-click="AccountCtrl.go('li.matchups.detail', { id: matchup.$id })">
-      {{ matchup.title }}
-      <md-icon class="material-icons md-secondary" ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">code</md-icon>
+    <md-list-item class="md-2-line" ng-repeat="matchup in MatchupsIndexCtrl.myMatchups" ng-click="AccountCtrl.go('li.matchups.detail', { id: matchup.$id })">
+      <div class="md-list-item-text">
+        <h3>{{ matchup.title }}</h3>
+        <h4>{{ matchup.hero.detail.year.year + ' ' + matchup.hero.detail.make.name + ' ' + matchup.hero.detail.model.name }} vs. {{ matchup.hero.detail.year.year + ' ' + matchup.villain.detail.make.name + ' ' + matchup.villain.detail.model.name }}</h4>
+      </div>
+      <md-menu>
+        <md-button>
+          <md-icon md-menu-origin class="material-icons md-secondary" ng-click="ctrl.openMenu($mdOpenMenu, $event)">more_vert</md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
+              <md-icon>code</md-icon>
+              Grab Snippet
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
       <md-divider></md-divider>
     </md-list-item>
   </md-card>
