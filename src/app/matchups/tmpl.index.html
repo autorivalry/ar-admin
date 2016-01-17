@@ -4,9 +4,42 @@
     <div ng-if="!MatchupsIndexCtrl.matchupsLoaded" flex layout layout-padding layout-align="center center">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-list-item ng-repeat="matchup in MatchupsIndexCtrl.myMatchups" ng-click="AccountCtrl.go('li.matchups.detail', { id: matchup.$id })">
-      {{ matchup.title }}
-      <md-icon class="material-icons md-secondary" ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">code</md-icon>
+    <md-list-item class="md-2-line" ng-repeat="matchup in MatchupsIndexCtrl.myMatchups" ng-click="AccountCtrl.go('li.matchups.detail', { id: matchup.$id })">
+      <div class="md-list-item-text">
+        <h3>{{ matchup.title }}</h3>
+        <h4>{{ matchup.hero.detail.year.year + ' ' + matchup.hero.detail.make.name + ' ' + matchup.hero.detail.model.name }} vs. {{ matchup.hero.detail.year.year + ' ' + matchup.villain.detail.make.name + ' ' + matchup.villain.detail.model.name }}</h4>
+      </div>
+      <md-menu md-position-mode="target-right target">
+        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+          <md-icon md-menu-origin class="material-icons md-secondary">more_vert</md-icon>
+        </md-button>
+        <md-menu-content width="3">
+          <md-menu-item>
+            <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
+              <div layout="row">
+                <p flex>Grab Snippet</p>
+                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">code</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="AccountCtrl.go('li.matchups.edit', { id: matchup.$id })">
+              <div layout="row">
+                <p flex>Edit Matchup</p>
+                <md-icon style="margin: auto 3px auto 0;">edit</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <a class="md-button" target="_blank" href="http://render.autorivalry.com/v1/matchups/{{ matchup.$id }}">
+              <div layout="row">
+                <p flex>View on Web</p>
+                <md-icon style="margin: auto 3px auto 0;">open_in_new</md-icon>
+              </div>
+            </a>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
       <md-divider></md-divider>
     </md-list-item>
   </md-card>
