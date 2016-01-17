@@ -1,1 +1,940 @@
+<h1 class="md-display-1">Edit Title</h1>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <md-input-container class="md-headline">
+        <label>Matchup Title</label>
+        <input ng-model="matchup.title" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)">
+      </md-input-container>
+      <p class="md-body-1">
+        Give your matchup a title that you will easily recognize.
+        This is how you will be able to reference it again if you need to make changes or edits.
+      </p>
+    </md-card-content>
+  </md-card>
+</div><!-- Edit Title -->
+
 <h1 class="md-display-1">Edit Matchup</h1>
+<div flex layout="row">
+  <md-card flex="40">
+    <img ng-src="/app/img/hero.png" class="md-card-image" alt="Hero Car">
+    <md-card-content>
+      <h2 class="md-title">Choose a Hero Vehicle:</h2>
+      <div layout="row">
+
+        <md-input-container flex>
+          <label ng-if="!MatchupsCtrl.loading.makes">Make</label>
+          <label ng-if="MatchupsCtrl.loading.makes">Loading...</label>
+          <md-select ng-model="matchup.hero.detail.make" aria-label="Choose a Make">
+            <md-option ng-value="matchup.hero.detail.make" aria-label="{{matchup.hero.detail.make.name}}">
+              {{ matchup.hero.detail.make.name }}
+            </md-option>
+            <md-option ng-repeat="make in MatchupsEditCtrl.makes" ng-value="make" aria-label="{{make.name}}">
+              {{ make.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </div><!-- row -->
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Model</label>
+          <md-select ng-model="matchup.hero.detail.model" ng-class="{ 'md-warn': hero.make === undefined }">
+            <md-option ng-value="matchup.hero.detail.model" aria-label="{{matchup.hero.detail.model.name}}">
+              {{ matchup.hero.detail.model.name }}
+            </md-option>
+            <md-option ng-repeat="model in hero.make.models" ng-value="model" >
+              {{ model.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="35">
+          <label>Year</label>
+          <md-select ng-model="matchup.hero.detail.year" md-on-close="MatchupsCtrl.updateStyles(hero, 'hero')" ng-class="{ 'md-warn': hero.model === undefined }">
+            <md-option ng-value="matchup.hero.detail.year" aria-label="{{matchup.hero.detail.year.year}}">
+              {{ matchup.hero.detail.year.year }}
+            </md-option>
+            <md-option ng-repeat="year in hero.model.years" ng-value="year">
+              {{ year.year }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+
+      <div layout="row">
+        <md-input-container flex>
+          <label>Style</label>
+          <md-select ng-model="MatchupsCtrl.hero.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.hero.style, 'hero')" aria-label="Choose a hero style">
+            <md-option ng-if="!MatchupsCtrl.styles.hero.styles">
+              Choose a make/model/year
+            </md-option>
+            <md-option ng-repeat="style in MatchupsCtrl.styles.hero.styles" ng-value="style" aria-label="{{ style.name }}">
+              {{ style.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+
+    </md-card-content>
+  </md-card>
+
+  <div flex layout="row" layout-align="center center">
+    <md-icon aria-label="vs.">compare_arrows</md-icon>
+  </div>
+
+  <md-card flex="40">
+    <img ng-src="/app/img/villain.png" class="md-card-image" alt="villain Car">
+    <md-card-content>
+      <h2 class="md-title">Choose a Villain Vehicle:</h2>
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Make</label>
+          <md-select ng-model="villain.make" class="md-warn">
+            <md-option ng-if="MatchupsCtrl.loading.makes">
+              Loading makes...
+            </md-option>
+            <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make" aria-label="{{make.name}}">
+              {{ make.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+      </div><!-- row -->
+      <div layout="row">
+
+        <md-input-container flex>
+          <label>Model</label>
+          <md-select ng-model="villain.model" class="md-warn">
+            <md-option ng-if="!villain.make">
+              Choose a make first.
+            </md-option>
+            <md-option ng-repeat="model in villain.make.models" ng-value="model">
+              {{ model.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="35">
+          <label>Year</label>
+          <md-select md-on-close="MatchupsCtrl.updateStyles(villain, 'villain')" ng-model="villain.year" class="md-warn">
+            <md-option ng-if="!villain.model">
+              Choose a model first.
+            </md-option>
+            <md-option ng-repeat="year in villain.model.years" ng-value="year">
+              {{ year.year }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+
+      <div layout="row">
+        <md-input-container flex>
+          <label>Style</label>
+          <md-select ng-model="MatchupsCtrl.villain.style" md-on-close="MatchupsCtrl.updateSpecs(MatchupsCtrl.villain.style, 'villain')" aria-label="Choose a villain style" class="md-warn">
+            <md-option ng-if="!MatchupsCtrl.styles.villain.styles">
+              Choose a make/model/year
+            </md-option>
+            <md-option ng-repeat="style in MatchupsCtrl.styles.villain.styles" ng-value="style" aria-label="{{ style.name }}">
+              {{ style.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div><!-- row -->
+
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Build Your Table</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <md-tabs md-dynamic-height md-border-bottom>
+
+        <md-tab label="Ratings">
+          <p class="md-body-2">
+            From Edmunds.com:
+          </p>
+          <p class="md-body-1">
+            The Edmunds Testing Team evaluates some 200 cars each year.
+            Each vehicle is driven on a standardized road test loop and visits our test track for instrumented testing in controlled conditions.
+            Our time behind the wheel is used to develop ratings that describe how a car stacks up against its direct rivals in a particular size and price class.
+            Visit <a ng-href="http://www.edmunds.com/new-car-ratings/" alt="Edmunds.com new car ratings list.">http://www.edmunds.com/new-car-ratings/</a> for more details.
+          </p>
+
+          <div layout="row">
+            <div flex="45">
+              <p class="md-body-2" ng-if="hero">
+                {{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }} Summary
+              </p>
+              <p class="md-body-2" ng-if="!hero">
+                Hero Vehicle's Summary
+              </p>
+              <p class="md-body-1">
+                {{ MatchupsCtrl.hero.ratings.summary }}
+              </p>
+            </div><!-- hero -->
+
+            <div flex="10"></div>
+
+            <div flex="45">
+              <p class="md-body-2" ng-if="villain">
+                {{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }} Summary
+              </p>
+              <p class="md-body-2" ng-if="!villain">
+                Villain Vehicle's Summary
+              </p>
+              <p class="md-body-1">
+                {{ MatchupsCtrl.villain.ratings.summary }}
+              </p>
+            </div><!-- villain -->
+          </div><!-- row -->
+
+          <md-list>
+
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="35">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="35">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <div ng-repeat="rating in MatchupsCtrl.hero.ratings.ratings">
+
+              <md-list-item class="md-long-text">
+                <div flex layout="row">
+                  <span flex>{{ rating.title }}</span>
+                  <span class="md-body-2" flex="35">{{ rating.score }} / 10</span>
+                  <span class="md-body-2" flex="35">{{ MatchupsCtrl.villain.ratings.ratings[$index].score }} / 10</span>
+                </div>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].include" aria-label="Include {{ rating.summary }}" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              </md-list-item>
+
+              <md-list-item ng-if="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].include" class="md-1-line md-long-text"><!-- start: Hero Summary -->
+                <md-switch class="md-primary" ng-model="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].hero_summary" aria-label="Include summary" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)">
+                  <md-tooltip>Include Hero Summary?</md-tooltip>
+                </md-switch>
+                <div class="md-list-item-text">
+                  <p class="md-body-1">
+                    <span class="md-body-2">{{ hero.make.name }} Summary</span><br>
+                    {{ rating.summary }}
+                  </p>
+                </div><!-- md-list-item-text -->
+              </md-list-item><!-- end: Hero Summary -->
+
+              <md-list-item ng-if="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].include && villain" class="md-1-line md-long-text"><!-- start: Villain Summary -->
+                <md-switch class="md-primary" ng-model="MatchupsCtrl.matchup.hero.edmunds_ratings.ratings[$index].villain_summary" aria-label="Include summary" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)">
+                  <md-tooltip>Include Villain Summary?</md-tooltip>
+                </md-switch>
+                <div class="md-list-item-text">
+                  <p class="md-body-1">
+                    <span class="md-body-2">{{ villain.make.name }} Summary</span><br>
+                    {{ MatchupsCtrl.villain.ratings.ratings[$index].summary }}
+                  </p>
+                </div><!-- md-list-item-text -->
+                <md-divider></md-divider>
+              </md-list-item><!-- end: Villain Summary -->
+            </div><!-- end: Rating -->
+          </md-list>
+        </md-tab><!-- Ratings -->
+
+        <md-tab label="Engine">
+          <md-list>
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="35">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="35">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item><!-- start: cylinders -->
+              <div flex layout="row">
+                <span flex>Cylinders</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.cylinder }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.cylinder }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_cylinder" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: cylinders -->
+
+            <md-list-item><!-- start: Displacement -->
+              <div flex layout="row">
+                <span flex>Displacement</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.displacement }} cc</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.displacement }} cc</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_displacement" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Displacement -->
+
+            <md-list-item><!-- start: Horsepower -->
+              <div flex layout="row">
+                <span flex>Horsepower</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.horsepower }} @ {{ MatchupsCtrl.hero.detail.engine.rpm.horsepower }} rpm</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.horsepower }} @ {{ MatchupsCtrl.villain.detail.engine.rpm.horsepower }} rpm</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_horsepower" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Horsepower -->
+
+            <md-list-item><!-- start: Torque -->
+              <div flex layout="row">
+                <span flex>Torque</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.torque }} @ {{ MatchupsCtrl.hero.detail.engine.rpm.torque }} rpm</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.torque }} @ {{ MatchupsCtrl.villain.detail.engine.rpm.torque }} rpm</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_torque" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Torque -->
+
+            <md-list-item><!-- start: MPG City -->
+              <div flex layout="row">
+                <span flex>MPG - City</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.MPG.city }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.MPG.city }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.MPG.include_city_mpg" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: MPG City -->
+
+            <md-list-item><!-- start: MPG Highway -->
+              <div flex layout="row">
+                <span flex>MPG - Highway</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.MPG.highway }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.MPG.highway }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.MPG.include_highway_mpg" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: MPG Highway -->
+
+            <md-list-item><!-- start: fuel type -->
+              <div flex layout="row">
+                <span flex>Fuel Type</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.fuelType }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.fuelType }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_fuel_type" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: fuel type -->
+
+            <md-list-item><!-- start: compression ratio -->
+              <div flex layout="row">
+                <span flex>Compression Ratio</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.engine.compressionRatio }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.engine.compressionRatio }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.engine.include_compression" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: compression ratio -->
+
+          </md-list>
+        </md-tab><!-- Engine -->
+
+        <md-tab label="Transmission">
+          <md-list>
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="35">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="35">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item><!-- start: Drive Type -->
+              <div flex layout="row">
+                <span flex>Drive Type</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.drivenWheels }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.drivenWheels }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.transmission.include_drive" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Drive Type -->
+
+            <md-list-item><!-- start: Speeds -->
+              <div flex layout="row">
+                <span flex>Speeds</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.transmission.numberOfSpeeds }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.transmission.numberOfSpeeds }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.transmission.include_speeds" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Speeds -->
+
+            <md-list-item><!-- start: Transmission Type -->
+              <div flex layout="row">
+                <span flex>Transmission Type</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.transmission.transmissionType }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.transmission.transmissionType }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.transmission.include_type" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Transmission Type -->
+
+          </md-list>
+        </md-tab><!-- Transmission -->
+
+        <md-tab label="Body">
+          <md-list>
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="35">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="35">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item><!-- start: Number of Doors -->
+              <div flex layout="row">
+                <span flex>Number of Doors</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.numOfDoors }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.numOfDoors }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.include_doors" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Number of Doors -->
+
+            <md-list-item><!-- start: EPA Class -->
+              <div flex layout="row">
+                <span flex>EPA Class</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.categories.EPAClass }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.categories.EPAClass }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.categories.include_epa" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: EPA Class -->
+
+            <md-list-item><!-- start: Body Type -->
+              <div flex layout="row">
+                <span flex>Body Type</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.categories.primaryBodyType }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.categories.primaryBodyType }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.categories.include_type" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Body Type -->
+
+            <md-list-item><!-- start: Vehicle Size -->
+              <div flex layout="row">
+                <span flex>Vehicle Size</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.categories.vehicleSize }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.categories.vehicleSize }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.categories.include_size" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Vehicle Size -->
+
+            <md-list-item><!-- start: Vehicle Style -->
+              <div flex layout="row">
+                <span flex>Vehicle Style</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.hero.detail.categories.vehicleStyle }}</span>
+                <span class="md-body-2" flex="35" layout-align="center center">{{ MatchupsCtrl.villain.detail.categories.vehicleStyle }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.detail.categories.include_style" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Vehicle Style -->
+
+          </md-list>
+        </md-tab><!-- Body -->
+
+        <md-tab label="Safety">
+          <h3 class="md-headline" ng-if="MatchupsCtrl.hero.safety.nhtsa">National Highway Traffic Safety Administration</h3>
+          <md-list ng-if="MatchupsCtrl.hero.safety.nhtsa">
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-2" flex="25">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-2" flex="25">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item ng-repeat="feature in MatchupsCtrl.hero.safety.nhtsa.categories"><!-- start: Number of Doors -->
+              <div flex layout="row">
+                <span flex>{{ feature.category }}</span>
+                <span class="md-body-1" flex="25" layout-align="center center">{{ feature.overall }}</span>
+                <span class="md-body-1" flex="25" layout-align="center center">{{ MatchupsCtrl.hero.safety.nhtsa.categories[$index].overall }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.safety.nhtsa.categories[$index].include" aria-label="Include {{ feature.category }}" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Number of Doors -->
+          </md-list>
+
+          <h3 class="md-headline" ng-if="MatchupsCtrl.hero.safety.iihs">Insurance Institute for Highway Safety</h3>
+          <md-list ng-if="MatchupsCtrl.hero.safety.iihs">
+            <md-list-item>
+              <div flex layout="row">
+                <span flex></span>
+                <span class="md-body-1" flex="25">{{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}</span>
+                <span class="md-body-1" flex="25">{{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}</span>
+              </div>
+              <md-divider></md-divider>
+            </md-list-item>
+
+            <md-list-item ng-repeat="feature in MatchupsCtrl.hero.safety.iihs"><!-- start: Number of Doors -->
+              <div flex layout="row">
+                <span flex>{{ feature.category }}</span>
+                <span class="md-body-2" flex="25" layout-align="center center">{{ feature.value }}</span>
+                <span class="md-body-2" flex="25" layout-align="center center">{{ MatchupsCtrl.villain.safety.iihs[$index].value }}</span>
+              </div>
+              <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.safety.iihs[$index].include" aria-label="Include compression ratio" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+              <md-divider></md-divider>
+            </md-list-item><!-- end: Number of Doors -->
+          </md-list>
+        </md-tab>
+
+        <md-tab label="Electronics">
+          <div layout="row" layout-align="center center">
+            <h3 class="md-display-1">Coming Soon!</h3>
+          </div>
+        </md-tab>
+
+      </md-tabs>
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Choose Consumer Reviews</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="Hero: {{ hero.year.year }} {{ hero.make.name }} {{ hero.model.name }}">
+
+          <div ng-if="!hero" layout="row" layout-align="center center">
+            <h3 class="md-display-1">Choose a hero vehicle first</h3>
+          </div><!-- row -->
+
+          <md-list>
+            <div ng-repeat="review in MatchupsCtrl.hero.reviews.reviews">
+              <md-list-item ng-hide="showReview" class="md-3-line md-offset" ng-click="showReview = true">
+                <div class="md-list-item-text" layout="column">
+                  <h4>
+                    <md-icon ng-if="review.userRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                  </h4>
+                  <h3>{{ review.title }}</h3>
+                  <p>
+                    Written by {{ review.author.authorName }} on {{ review.created }}
+                  </p>
+                </div>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+                <md-divider></md-divider>
+              </md-list-item>
+
+              <md-list-item md-no-ink ng-show="showReview" layout="row">
+                <div class="padding-vertical-20" flex layout="row">
+                  <md-card flex layout="row">
+                    <md-list flex>
+
+                      <md-list-item layout="row">
+                        <div flex>
+                          <h3 class="md-headline" flex>{{ review.title }}</h3>
+                          <h4 class="md-body-2">Written by {{ review.author.authorName }} on {{ review.created | date }}</h4>
+                        </div><!-- flex -->
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-model="topping.wanted">
+                        <div flex>
+                          Include review in matchup?
+                          <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.hero.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Performance Rating: {{ review.performanceRatingDto.performanceRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Comfort Rating: {{ review.comfortRatingDto.comfortRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33" flex-offset="10">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Safety Rating: {{ review.safetyRatingDto.safetyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 0" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 1" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 2" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 3" class="material-icons md-primary">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 4" class="material-icons md-primary">star_rate</md-icon>
+                            <br>
+                            Technology Rating: {{ review.technologyRatingDto.technologyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <div flex>
+                          <p class="md-body-1">
+                            {{ review.text }}
+                          </p>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.favoriteFeatures">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Favorite Features</span>
+                            <br>
+                            {{ review.favoriteFeatures }}
+                          </p>
+                        </div><!-- row -->
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.suggestedImprovements">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Suggested Improvements</span>
+                            <br>
+                            {{ review.suggestedImprovements }}
+                          </p>
+                        </div><!-- row -->
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary md-ink-ripple" ng-click="showReview = false" aria-label="Close review">
+                          Close
+                          <md-icon>close</md-icon>
+                        </md-button>
+                      </md-list-item>
+                    </md-list>
+
+
+                  </md-card>
+                </div><!-- padding -->
+              </md-list-item>
+            </div><!-- reviews -->
+          </md-list>
+        </md-tab><!-- Hero Tab -->
+        <md-tab label="Villain: {{ villain.year.year }} {{ villain.make.name }} {{ villain.model.name }}">
+
+          <div ng-if="!villain" layout="row" layout-align="center center">
+            <h3 class="md-display-1">Choose a villain vehicle first</h3>
+          </div><!-- row -->
+
+          <md-list>
+            <div ng-repeat="review in MatchupsCtrl.villain.reviews.reviews">
+              <md-list-item ng-hide="showReview" class="md-3-line md-offset" ng-click="showReview = true">
+                <div class="md-list-item-text" layout="column">
+                  <h4>
+                    <md-icon ng-if="review.userRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                    <md-icon ng-if="review.userRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                  </h4>
+                  <h3>{{ review.title }}</h3>
+                  <p>
+                    Written by {{ review.author.authorName }} on {{ review.created }}
+                  </p>
+                </div>
+                <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.villain.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+                <md-divider></md-divider>
+              </md-list-item>
+
+              <md-list-item md-no-ink ng-show="showReview" layout="row">
+                <div class="padding-vertical-20" flex layout="row">
+                  <md-card flex layout="row">
+                    <md-list flex>
+
+                      <md-list-item layout="row">
+                        <div flex>
+                          <h3 class="md-headline" flex>{{ review.title }}</h3>
+                          <h4 class="md-body-2">Written by {{ review.author.authorName }} on {{ review.created | date }}</h4>
+                        </div><!-- flex -->
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-model="topping.wanted">
+                        <div flex>
+                          Include review in matchup?
+                          <md-checkbox class="md-secondary" ng-model="MatchupsCtrl.matchup.villain.reviews.reviews[$index].include" ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"></md-checkbox>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.performanceRatingDto.performanceRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Performance Rating: {{ review.performanceRatingDto.performanceRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.comfortRatingDto.comfortRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Comfort Rating: {{ review.comfortRatingDto.comfortRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                        <div flex="33" flex-offset="10">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <md-divider></md-divider>
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.interiorRatingDto.interiorRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Interior Rating: {{ review.interiorRatingDto.interiorRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.safetyRatingDto.safetyRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Safety Rating: {{ review.safetyRatingDto.safetyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+
+                        <div flex="33">
+                          <p class="md-body-2">
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 0" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 1" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 2" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 3" class="material-icons md-warn">star_rate</md-icon>
+                            <md-icon ng-if="review.technologyRatingDto.technologyRating > 4" class="material-icons md-warn">star_rate</md-icon>
+                            <br>
+                            Technology Rating: {{ review.technologyRatingDto.technologyRating }}/5
+                          </p>
+                        </div><!-- 33 -->
+                      </md-list-item>
+
+                      <md-list-item layout="row">
+                        <div flex>
+                          <p class="md-body-1">
+                            {{ review.text }}
+                          </p>
+                        </div>
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.favoriteFeatures">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Favorite Features</span>
+                            <br>
+                            {{ review.favoriteFeatures }}
+                          </p>
+                        </div><!-- row -->
+                      </md-list-item>
+
+                      <md-list-item layout="row" ng-if="review.suggestedImprovements">
+                        <div layout="row">
+                          <p class="md-body-1">
+                            <span class="md-body-2">Suggested Improvements</span>
+                            <br>
+                            {{ review.suggestedImprovements }}
+                          </p>
+                        </div><!-- row -->
+                        <md-divider></md-divider>
+                      </md-list-item>
+
+                      <md-list-item layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary md-ink-ripple" ng-click="showReview = false" aria-label="Close review">
+                          Close
+                          <md-icon>close</md-icon>
+                        </md-button>
+                      </md-list-item>
+                    </md-list>
+
+
+                  </md-card>
+                </div><!-- padding -->
+              </md-list-item>
+            </div><!-- reviews -->
+          </md-list>
+        </md-tab><!-- Villain Tab -->
+      </md-tabs>
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Write Comparison Article</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+        <div layout="row">
+          <text-angular-toolbar
+            flex="45"
+            name="headings"
+            ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+        </div>
+        <div layout="row">
+          <text-angular-toolbar
+            flex="25"
+            name="formatting"
+            ta-toolbar="[['quote','bold','italics','underline','strikeThrough']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="10"
+            name="lists"
+            ta-toolbar="[['ol','ul']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="20"
+            name="justify"
+            ta-toolbar="[['justifyLeft','justifyCenter','justifyRight','justifyFull']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+          <div flex="5"></div>
+          <text-angular-toolbar
+            flex="10"
+            name="media"
+            ta-toolbar="[['insertImage','insertLink']]"
+            ta-toolbar-class="md-button-toolbar"
+            ta-toolbar-group-class="md-button-group"
+            ta-toolbar-button-class="md-button md-icon-button">
+          </text-angular-toolbar>
+        </div>
+        <text-angular
+          flex
+          ng-model="MatchupsCtrl.matchup.article"
+          ng-change="MatchupsCtrl.saveChanges(MatchupsCtrl.matchup)"
+          ta-text-editor-class="outline-d"
+          ta-target-toolbars="headings,formatting,lists,justify,media">
+        </text-angular>
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Choose Media (Coming Soon!)</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <md-grid-list md-cols="3" md-gutter="1em" md-row-height="4:3">
+
+        <md-grid-tile md-rowspan="2" md-colspan="2" style="background: url('http://placehold.it/400x400&text=Hero+One') no-repeat center center; background-size: cover; ">
+          <md-grid-tile-footer>
+            <h3>Hero One Image</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+        <md-grid-tile md-rowspan="1" md-colspan="1" style="background: url('http://placehold.it/400x400&text=Hero+Two') no-repeat center center; background-size: cover; ">
+          <md-grid-tile-footer>
+            <h3>Hero Two Image</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+        <md-grid-tile md-rowspan="1" md-colspan="1" style="background: url('http://placehold.it/400x400&text=villain+One') no-repeat center center; background-size: cover; ">
+          <md-grid-tile-footer>
+            <h3>villain One Image</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+
+      </md-grid-list>
+    </md-card-content>
+  </md-card>
+</div>
