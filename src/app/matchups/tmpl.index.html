@@ -23,7 +23,7 @@
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
+            <md-button ng-click="AccountCtrl.go('li.matchups.edit', { id: matchup.$id })">
               <div layout="row">
                 <p flex>Edit Matchup</p>
                 <md-icon style="margin: auto 3px auto 0;">edit</md-icon>
@@ -31,12 +31,12 @@
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
+            <a class="md-button" target="_blank" href="http://render.autorivalry.com/v1/matchups/{{ matchup.$id }}">
               <div layout="row">
                 <p flex>View on Web</p>
                 <md-icon style="margin: auto 3px auto 0;">open_in_new</md-icon>
               </div>
-            </md-button>
+            </a>
           </md-menu-item>
         </md-menu-content>
       </md-menu>

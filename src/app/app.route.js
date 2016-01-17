@@ -52,6 +52,13 @@
           title: 'Matchup Detail'
         }
       })
+      .state('li.matchups.edit', {
+        url: '/id/:id/edit',
+        templateUrl: 'app/matchups/tmpl.edit.html',
+        data: {
+          title: 'Edit Matchup'
+        }
+      })
       .state('li.matchups.create', {
         url: '/create',
         templateUrl: 'app/matchups/tmpl.create.html',
