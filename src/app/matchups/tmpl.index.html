@@ -9,15 +9,33 @@
         <h3>{{ matchup.title }}</h3>
         <h4>{{ matchup.hero.detail.year.year + ' ' + matchup.hero.detail.make.name + ' ' + matchup.hero.detail.model.name }} vs. {{ matchup.hero.detail.year.year + ' ' + matchup.villain.detail.make.name + ' ' + matchup.villain.detail.model.name }}</h4>
       </div>
-      <md-menu>
-        <md-button>
-          <md-icon md-menu-origin class="material-icons md-secondary" ng-click="ctrl.openMenu($mdOpenMenu, $event)">more_vert</md-icon>
+      <md-menu md-position-mode="target-right target">
+        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+          <md-icon md-menu-origin class="material-icons md-secondary">more_vert</md-icon>
         </md-button>
-        <md-menu-content width="4">
+        <md-menu-content width="3">
           <md-menu-item>
             <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
-              <md-icon>code</md-icon>
-              Grab Snippet
+              <div layout="row">
+                <p flex>Grab Snippet</p>
+                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">code</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
+              <div layout="row">
+                <p flex>Edit Matchup</p>
+                <md-icon style="margin: auto 3px auto 0;">edit</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="MatchupsIndexCtrl.grabCode($event, matchup.$id)">
+              <div layout="row">
+                <p flex>View on Web</p>
+                <md-icon style="margin: auto 3px auto 0;">open_in_new</md-icon>
+              </div>
             </md-button>
           </md-menu-item>
         </md-menu-content>

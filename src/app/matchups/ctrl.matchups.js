@@ -6,7 +6,7 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController (CurrentAuth, $rootScope, $log, $mdToast, $mdSticky, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
+  function MatchupsController (CurrentAuth, $rootScope, $log, $mdToast, $mdSticky, $mdDialog, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
 
     var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
     var vm = this;
