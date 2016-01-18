@@ -15,7 +15,7 @@
       .$object($stateParams.id)
       .$bindTo($scope, 'matchup')
       .then(function () {
-        $log.log($scope.matchup);      
+        $log.log($scope.matchup);
       });
     vm.styles = new Object;
     vm.matchup = new Object;
