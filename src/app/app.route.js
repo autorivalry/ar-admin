@@ -55,6 +55,8 @@
       .state('li.matchups.edit', {
         url: '/id/:id/edit',
         templateUrl: 'app/matchups/tmpl.edit.html',
+        controller: 'MatchupsEditController',
+        controllerAs: 'MatchupsEditCtrl',
         data: {
           title: 'Edit Matchup'
         }
