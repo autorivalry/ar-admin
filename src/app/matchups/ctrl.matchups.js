@@ -178,7 +178,7 @@
       // and should add it to the array
       } else {
         Matchups.$array
-          .$add(_.merge(vm.matchup, {"uid": CurrentAuth.uid }))
+          .$add(_.merge(vm.matchup, {"uid": CurrentAuth.uid, "layout": "autoclub" }))
           .then( function (ref) {
             savedMatchup = ref.key();
             vm.matchup = Matchups.$object(savedMatchup);
