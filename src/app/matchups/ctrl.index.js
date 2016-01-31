@@ -29,6 +29,26 @@
       );
     }
 
+    vm.deleteMatchup = function (ev, id) {
+
+      $mdDialog.show(
+        $mdDialog.confirm()
+          .parent(angular.element(document.querySelector('#popupContainer')))
+          .clickOutsideToClose(true)
+          .title('Delete the Matchup')
+          .content('Warning, this cannot be undone!')
+          .ariaLabel('Delete the Matchup')
+          .ok('I understand')
+          .cancel('Go back to safety')
+          .targetEvent(ev)
+      ).then( function () {
+        // delete the matchup
+        Matchups.$object(id).$remove();
+      }, function () {
+
+      });
+    }
+
   }
 
 })();
