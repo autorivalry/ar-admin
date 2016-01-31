@@ -38,6 +38,14 @@
               </div>
             </a>
           </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="MatchupsIndexCtrl.deleteMatchup($event, matchup.$id)">
+              <div layout="row">
+                <p flex>Delete Matchup</p>
+                <md-icon md-menu-align-target style="margin: auto 3px auto 0;">delete</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
         </md-menu-content>
       </md-menu>
       <md-divider></md-divider>
