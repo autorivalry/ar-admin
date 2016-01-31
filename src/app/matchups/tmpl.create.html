@@ -17,9 +17,12 @@
 <h1 class="md-display-1">Create Matchup</h1>
 <div flex layout="row">
   <md-card flex="40">
-    <img ng-src="/app/img/hero.png" class="md-card-image" alt="Hero Car">
+    <img ng-if="!MatchupsCtrl.matchup.hero.image_url" ng-src="/app/img/hero.png" class="md-card-image" alt="Hero Car">
+    <img ng-if="MatchupsCtrl.matchup.hero.image_url" ng-src="{{ MatchupsCtrl.matchup.hero.image_url }}" class="md-card-image" alt="Hero Car Image" />
     <md-card-content>
       <h2 class="md-title">Choose a Hero Vehicle:</h2>
+
+
       <div layout="row">
 
         <md-input-container flex>
@@ -77,6 +80,15 @@
         </md-input-container>
       </div><!-- row -->
 
+      <div ng-if="MatchupsCtrl.matchup.hero" layout="row">
+
+        <md-input-container flex>
+          <label>Hero Image URL</label>
+          <input ng-model="MatchupsCtrl.matchup.hero.image_url">
+        </md-input-container>
+
+      </div>
+
     </md-card-content>
   </md-card>
 
@@ -85,9 +97,11 @@
   </div>
 
   <md-card flex="40">
-    <img ng-src="/app/img/villain.png" class="md-card-image" alt="villain Car">
+    <img ng-if="!MatchupsCtrl.matchup.villain.image_url" ng-src="/app/img/villain.png" class="md-card-image" alt="villain Car">
+    <img ng-if="MatchupsCtrl.matchup.villain.image_url" ng-src="{{ MatchupsCtrl.matchup.villain.image_url }}" class="md-card-image" alt="villain Car">
     <md-card-content>
       <h2 class="md-title">Choose a Villain Vehicle:</h2>
+
       <div layout="row">
 
         <md-input-container flex>
@@ -143,6 +157,15 @@
           </md-select>
         </md-input-container>
       </div><!-- row -->
+
+      <div ng-if="MatchupsCtrl.matchup.villain" layout="row">
+
+        <md-input-container flex>
+          <label>Villain Image URL</label>
+          <input ng-model="MatchupsCtrl.matchup.villain.image_url">
+        </md-input-container>
+
+      </div>
 
     </md-card-content>
   </md-card>
