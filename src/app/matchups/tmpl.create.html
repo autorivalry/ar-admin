@@ -80,15 +80,6 @@
         </md-input-container>
       </div><!-- row -->
 
-      <div ng-if="MatchupsCtrl.matchup.hero" layout="row">
-
-        <md-input-container flex>
-          <label>Hero Image URL</label>
-          <input ng-model="MatchupsCtrl.matchup.hero.image_url">
-        </md-input-container>
-
-      </div>
-
     </md-card-content>
   </md-card>
 
@@ -158,15 +149,44 @@
         </md-input-container>
       </div><!-- row -->
 
-      <div ng-if="MatchupsCtrl.matchup.villain" layout="row">
+    </md-card-content>
+  </md-card>
+</div>
 
-        <md-input-container flex>
-          <label>Villain Image URL</label>
-          <input ng-model="MatchupsCtrl.matchup.villain.image_url">
-        </md-input-container>
+<h2 class="md-headline">Add Some Images</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
+      <div layout="row">
+
+        <div flex="40">
+          <h2 class="md-title">Choose a Hero Image:</h2>
+          <md-input-container flex>
+            <label>Hero Image URL</label>
+            <input ng-model="MatchupsCtrl.matchup.hero.image_url">
+          </md-input-container>
+        </div>
+
+        <div flex="40" offset="10">
+          <h2 class="md-title">Choose a Villain Image:</h2>
+          <md-input-container flex>
+            <label>Villain Image URL</label>
+            <input ng-model="MatchupsCtrl.matchup.villain.image_url">
+          </md-input-container>
+        </div>
 
       </div>
 
+
+      <h2 class="md-title">Add some Gallery Images:</h2>
+      <md-input-container flex ng-repeat="image_url in images">
+        <label>Image URL</label>
+        <input ng-model="image_url">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Image URL</label>
+        <input ng-model="newImageUrl">
+      </md-input-container>
     </md-card-content>
   </md-card>
 </div>
