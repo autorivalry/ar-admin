@@ -179,14 +179,59 @@
 
 
       <h2 class="md-title">Add some Gallery Images:</h2>
-      <md-input-container flex ng-repeat="image_url in images">
-        <label>Image URL</label>
-        <input ng-model="image_url">
-      </md-input-container>
-      <md-input-container flex>
-        <label>Image URL</label>
-        <input ng-model="newImageUrl">
-      </md-input-container>
+      <p>
+        Right now we can only include 10 images in the gallery. We're currently working on updating the images interface ASAP. We will let you know as soon as it is complete.
+      </p>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image One URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_1">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Two URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_2">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Three URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_3">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Four URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_4">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Five URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_5">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Six URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_6">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Seven URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_7">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Eight URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_8">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Nine URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_9">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Ten URL</label>
+          <input ng-model="MatchupsCtrl.matchup.images.url_10">
+        </md-input-container>
+      </div>
     </md-card-content>
   </md-card>
 </div>
