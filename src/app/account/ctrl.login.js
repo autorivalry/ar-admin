@@ -12,7 +12,11 @@
 
     vm.loginWithPassword = function () {
       Auth.$authWithPassword(vm.user)
-      .then(function () {
+      .then(function (authData) {
+        _slaask.identify(authData.password.email, {
+           user_id: authData.uid,
+           email: authData.password.email,
+       });
         $state.go('li.matchups.index');
       })
       .catch( function (error) {
