@@ -1,7 +1,7 @@
 <div flex layout="row">
   <md-sidenav flex layout="column" class="md-sidenav-left md-whiteframe-z4"  md-component-id="settings" md-is-locked-open="$mdMedia('gt-md')">
-    <md-content flex>
-      <md-list-item ui-sref="li.matchups.index" md-ink-ripple>
+    <md-content flex layout="column" class="md-secondary">
+      <md-list-item ng-click="AccountCtrl.go('li.matchups.create')">
         Edit My Profile
         <md-divider></md-divider>
       </md-list-item>
