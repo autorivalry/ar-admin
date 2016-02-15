@@ -78,15 +78,6 @@
         </md-input-container>
       </div><!-- row -->
 
-      <div layout="row">
-
-        <md-input-container flex>
-          <label>Hero Image URL</label>
-          <input ng-model="matchup.hero.image_url">
-        </md-input-container>
-
-      </div>
-
     </md-card-content>
   </md-card>
 
@@ -105,7 +96,7 @@
           <label>Make</label>
           <md-select ng-model="matchup.villain.detail.make" class="md-warn">
             <md-option ng-value="matchup.villain.detail.make" aria-label="{{matchup.villain.detail.make.name}}">
-              {{ matchup.hero.detail.make.name }}
+              {{ matchup.villain.detail.make.name }}
             </md-option>
             <md-option ng-repeat="make in MatchupsCtrl.makes" ng-value="make" aria-label="{{make.name}}">
               {{ make.name }}
@@ -155,15 +146,92 @@
         </md-input-container>
       </div><!-- row -->
 
+    </md-card-content>
+  </md-card>
+</div>
+
+<h2 class="md-headline">Add Some Images</h2>
+<div flex layout="row">
+  <md-card flex>
+    <md-card-content>
       <div layout="row">
 
-        <md-input-container flex>
-          <label>Villain Image URL</label>
-          <input ng-model="matchup.villain.image_url">
-        </md-input-container>
+        <div flex="40">
+          <h2 class="md-title">Choose a Hero Image:</h2>
+          <md-input-container flex>
+            <label>Hero Image URL</label>
+            <input ng-model="matchup.hero.image_url">
+          </md-input-container>
+        </div>
+
+        <div flex="40" offset="10">
+          <h2 class="md-title">Choose a Villain Image:</h2>
+          <md-input-container flex>
+            <label>Villain Image URL</label>
+            <input ng-model="matchup.villain.image_url">
+          </md-input-container>
+        </div>
 
       </div>
 
+
+      <h2 class="md-title">Add some Gallery Images:</h2>
+      <p class="md-body-1">
+        Right now we can only include 10 images in the gallery. We're currently working on updating the images interface ASAP. We will let you know as soon as it is complete.
+      </p>
+      <p class="md-body-2">
+        Make sure that you have the appropriate rights and licenses to use these photos. Auto Rivalry is not responsible for bad judgement.
+      </p>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image One URL</label>
+          <input ng-model="matchup.images.url_1">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Two URL</label>
+          <input ng-model="matchup.images.url_2">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Three URL</label>
+          <input ng-model="matchup.images.url_3">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Four URL</label>
+          <input ng-model="matchup.images.url_4">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Five URL</label>
+          <input ng-model="matchup.images.url_5">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Six URL</label>
+          <input ng-model="matchup.images.url_6">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Seven URL</label>
+          <input ng-model="matchup.images.url_7">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Eight URL</label>
+          <input ng-model="matchup.images.url_8">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="45">
+          <label>Image Nine URL</label>
+          <input ng-model="matchup.images.url_9">
+        </md-input-container>
+        <md-input-container flex offset="5">
+          <label>Image Ten URL</label>
+          <input ng-model="matchup.images.url_10">
+        </md-input-container>
+      </div>
     </md-card-content>
   </md-card>
 </div>
