@@ -136,7 +136,7 @@
       .content('You have unsaved changes!')
       .action('save')
       .highlightAction(true)
-      .position('bottom right')
+      .position('bottom left')
       .hideDelay(false);
 
 
