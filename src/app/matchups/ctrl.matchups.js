@@ -6,9 +6,9 @@
     .controller('MatchupsController', MatchupsController);
 
   /** @ngInject */
-  function MatchupsController (CurrentAuth, $rootScope, $log, $mdToast, $mdSticky, $mdDialog, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
+  function MatchupsController (CurrentAuth, API_KEY, $rootScope, $log, $mdToast, $mdSticky, $mdDialog, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
 
-    var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
+    var api_key = API_KEY.$value;
     var vm = this;
     vm.styles = new Object;
     vm.matchup = new Object;
@@ -120,14 +120,14 @@
             $log.error(error)
           });
 
-        // Photos.getPhotosByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, {})
-        //   .then(function (success) {
-        //     vm[vehicle].photos = success.data;
-        //     $log.log(vehicle + ' photos loading...')
-        //     $log.log(vm[vehicle]);
-        //   }, function (error) {
-        //     $log.error(error);
-        //   })
+        Photos.getPhotosByModelYear(api_key, data.make.niceName, data.model.niceName, data.year.year, { width: 600, pagesize: 50 })
+          .then(function (success) {
+            vm[vehicle].photos = success.data;
+            $log.log(vehicle + ' photos loading...')
+            $log.log(vm[vehicle]);
+          }, function (error) {
+            $log.error(error);
+          })
         vm.saveChanges(vm.matchup);
       } // end if
     }

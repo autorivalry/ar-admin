@@ -16,18 +16,25 @@
       })
       .state('li', {
         url: '/app',
+        resolve: {
+          // controller will not be loaded until $requireAuth resolves
+          // Auth refers to our $firebaseAuth wrapper in the example above
+          "CurrentAuth": ["Auth", function(Auth) {
+            // $requireAuth returns a promise so the resolve waits for it to complete
+            return Auth.$requireAuth();
+          }],
+          "API_KEY": ["FIREBASE_URL", "$firebaseObject", function (FIREBASE_URL, $firebaseObject) {
+            var itemsRef = new Firebase(FIREBASE_URL + "/edmunds_key");
+            var obj = $firebaseObject(itemsRef);
+
+            return obj.$loaded();
+
+          }]
+        },
         templateUrl: 'app/account/tmpl.li.html',
         controller: 'AccountController',
         controllerAs: 'AccountCtrl',
-        abstract: true,
-        resolve: {
-          // controller will not be loaded until $waitForAuth resolves
-          // Auth refers to our $firebaseAuth wrapper in the example above
-          "CurrentAuth": ["Auth", function(Auth) {
-            // $waitForAuth returns a promise so the resolve waits for it to complete
-            return Auth.$requireAuth();
-          }]
-        }
+        abstract: true
       })
       .state('li.matchups', {
         url: '/matchups',
