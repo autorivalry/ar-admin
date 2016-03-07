@@ -17,8 +17,8 @@
 <h1 class="md-display-1">Create Matchup</h1>
 <div flex layout="row">
   <md-card flex="40">
-    <img ng-if="!MatchupsCtrl.matchup.hero.image_url" ng-src="/app/img/hero.png" class="md-card-image" alt="Hero Car">
-    <img ng-if="MatchupsCtrl.matchup.hero.image_url" ng-src="{{ MatchupsCtrl.matchup.hero.image_url }}" class="md-card-image" alt="Hero Car Image" />
+    <img src="/app/img/hero.png" class="md-card-image" alt="Hero Car">
+    <!-- <img ng-if="MatchupsCtrl.matchup.hero.image_url" ng-src="{{ MatchupsCtrl.matchup.hero.image_url }}" class="md-card-image" alt="Hero Car Image" /> -->
     <md-card-content>
       <h2 class="md-title">Choose a Hero Vehicle:</h2>
 
@@ -88,8 +88,7 @@
   </div>
 
   <md-card flex="40">
-    <img ng-if="!MatchupsCtrl.matchup.villain.image_url" ng-src="/app/img/villain.png" class="md-card-image" alt="villain Car">
-    <img ng-if="MatchupsCtrl.matchup.villain.image_url" ng-src="{{ MatchupsCtrl.matchup.villain.image_url }}" class="md-card-image" alt="villain Car">
+    <img src="/app/img/villain.png" class="md-card-image" alt="villain Car">
     <md-card-content>
       <h2 class="md-title">Choose a Villain Vehicle:</h2>
 
@@ -185,56 +184,16 @@
       <p class="md-body-2">
         Make sure that you have the appropriate rights and licenses to use these photos. Auto Rivalry is not responsible for bad judgement.
       </p>
-      <div layout="row">
-        <md-input-container flex="45">
-          <label>Image One URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_1">
-        </md-input-container>
-        <md-input-container flex flex-offset="5">
-          <label>Image Two URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_2">
-        </md-input-container>
-      </div>
-      <div layout="row">
-        <md-input-container flex="45">
-          <label>Image Three URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_3">
-        </md-input-container>
-        <md-input-container flex flex-offset="5">
-          <label>Image Four URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_4">
-        </md-input-container>
-      </div>
-      <div layout="row">
-        <md-input-container flex="45">
-          <label>Image Five URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_5">
-        </md-input-container>
-        <md-input-container flex flex-offset="5">
-          <label>Image Six URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_6">
-        </md-input-container>
-      </div>
-      <div layout="row">
-        <md-input-container flex="45">
-          <label>Image Seven URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_7">
-        </md-input-container>
-        <md-input-container flex flex-offset="5">
-          <label>Image Eight URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_8">
-        </md-input-container>
-      </div>
-      <div layout="row">
-        <md-input-container flex="45">
-          <label>Image Nine URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_9">
-        </md-input-container>
-        <md-input-container flex flex-offset="5">
-          <label>Image Ten URL</label>
-          <input ng-model="MatchupsCtrl.matchup.images.url_10">
-        </md-input-container>
-      </div>
+      <md-grid-list
+        md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+        md-row-height-gt-md="4:3" md-row-height="4:3"
+        md-gutter="8px" md-gutter-gt-sm="4px" >
+        <md-grid-tile md-colspan="2" md-rowspan="2" ng-repeat="photo in MatchupsCtrl.hero.photos.photos" style="background: url(https://media.ed.edmunds-media.com{{ photo.sources[0].link.href }}) no-repeat center center; background-size: cover;">
+          <md-grid-tile-footer>
+            <h3>{{ photo.title }}</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
     </md-card-content>
   </md-card>
 </div>
