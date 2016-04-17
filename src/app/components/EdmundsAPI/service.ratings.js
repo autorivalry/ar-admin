@@ -1,5 +1,5 @@
 // http://developer.edmunds.com/api-documentation/vehicle/spec_style/v2/
-https://api.edmunds.com/api/vehiclereviews/v2/styles/200701955?api_key=2wgrfjrcmdkq9f4sxgacrhgw&fmt=json
+https://api.edmunds.com/api/vehiclereviews/v2/styles/200701955?api_key=v4nbu6cmt3j2zbrvdc4am5kx&fmt=json
 
 (function() {
   'use strict';
