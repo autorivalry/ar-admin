@@ -8,7 +8,7 @@
   /** @ngInject */
   function MatchupsEditController (CurrentAuth, $scope, $rootScope, $log, $stateParams, $mdToast, $mdSticky, $mdDialog, Matchups, Makes, Styles, Specs, Ratings, Photos, Safety) {
 
-    var api_key = '2wgrfjrcmdkq9f4sxgacrhgw';
+    var api_key = 'v4nbu6cmt3j2zbrvdc4am5kx';
     var vm = this;
     // bind the matchup to the view using $scope
     Matchups
